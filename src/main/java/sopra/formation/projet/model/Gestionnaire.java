@@ -13,9 +13,9 @@ public class Gestionnaire extends Personne{
 	@Column(name="dossierAdmn")
 	private String dossierAdm;
 	
-//	@OneToOne
-//	@JoinColumn(name="planning")
-//	private Planning planning;
+	@OneToOne
+	@JoinColumn(name="planning")
+	private Planning planning;
 	
 	@OneToOne
 	@JoinColumn(name="login")
@@ -25,9 +25,9 @@ public class Gestionnaire extends Personne{
 		
 	}
 
-	public Gestionnaire(String dossierAdm,  Login login) {
+	public Gestionnaire(String dossierAdm,  Login login, Planning planning) {
 		this.dossierAdm = dossierAdm;
-		//this.planning = planning;
+		this.planning = planning;
 		this.login = login;
 	}
 
@@ -39,13 +39,13 @@ public class Gestionnaire extends Personne{
 		this.dossierAdm = dossierAdm;
 	}
 
-//	public Planning getPlanning() {
-//		return planning;
-//	}
-//
-//	public void setPlanning(Planning planning) {
-//		this.planning = planning;
-//	}
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
 
 	public Login getLogin() {
 		return login;

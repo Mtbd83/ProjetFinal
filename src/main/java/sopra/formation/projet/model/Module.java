@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -25,8 +27,9 @@ public class Module {
 //	@OneToMany(mappedBy="module")
 //	private Set<Stagiaire> stagiaires;
 //	
-//	@OneToOne(mappedBy="module")
-//	private Planning planning;
+	@ManyToOne
+	@JoinColumn(name="planning_id")
+	private Planning planning;
 	
 	@Version
 	private int version;
