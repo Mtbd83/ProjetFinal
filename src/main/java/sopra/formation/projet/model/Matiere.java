@@ -24,16 +24,12 @@ public class Matiere {
 	@NotEmpty
 	private String titre;
 	
-	@NotEmpty
 	private Integer duree;
 	
-	@NotEmpty
 	private String objectif;
 	
-	@NotEmpty
 	private String prerequis;
 	
-	@NotEmpty
 	private String contenu;
 	
 	@ManyToOne
