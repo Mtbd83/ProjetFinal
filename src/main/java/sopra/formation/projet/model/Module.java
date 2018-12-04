@@ -24,8 +24,8 @@ public class Module {
 	@OneToMany(mappedBy="module")
 	private Set<Matiere> matieres;
 	
-//	@OneToMany(mappedBy="module")
-//	private Set<Stagiaire> stagiaires;
+	@OneToMany(mappedBy="module")
+	private Set<Stagiaire> stagiaires;
 //	
 	@ManyToOne
 	@JoinColumn(name="planning_id")
