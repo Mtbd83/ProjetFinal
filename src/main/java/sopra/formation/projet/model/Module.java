@@ -29,8 +29,12 @@ public class Module {
 	@OneToOne(mappedBy="module")
 	private Matiere matiere;
 	
-	@OneToMany(mappedBy="module")
-	private Set<Stagiaire> stagiaires;
+	@ManyToOne
+	@JoinColumn(name="formateur_id")
+	private Formateur formateur;
+	
+	@OneToMany(mappedBy="key.module")
+	private Set<ModuleStagiaire> modulesStagiaires;
 
 	@ManyToOne
 	@JoinColumn(name="planning_id")
@@ -82,12 +86,20 @@ public class Module {
 		this.dateFin = dateFin;
 	}
 
-	public Set<Stagiaire> getStagiaires() {
-		return stagiaires;
+	public Set<ModuleStagiaire> getModulesStagiaires() {
+		return modulesStagiaires;
 	}
 
-	public void setStagiaires(Set<Stagiaire> stagiaires) {
-		this.stagiaires = stagiaires;
+	public void setModulesStagiaires(Set<ModuleStagiaire> modulesStagiaires) {
+		this.modulesStagiaires = modulesStagiaires;
+	}
+
+	public Formateur getFormateur() {
+		return formateur;
+	}
+
+	public void setFormateur(Formateur formateur) {
+		this.formateur = formateur;
 	}
 
 	public Planning getPlanning() {
