@@ -6,5 +6,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("VideoProjecteur")
 public class VideoProjecteur extends Materiel {
+	
+	public VideoProjecteur() {
+		
+	}
 		
 }
