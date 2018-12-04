@@ -1,6 +1,5 @@
 package sopra.formation.projet.model;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,12 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @SequenceGenerator(name = "seqMatiere", sequenceName = "seq_matiere", initialValue = 1, allocationSize = 1)
@@ -29,15 +24,8 @@ public class Matiere {
 	@NotEmpty
 	private String titre;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@NotEmpty
-	private Date dateDebut;
-	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@NotEmpty
-	private Date dateFin;
+	private Integer duree;
 	
 	@NotEmpty
 	private String objectif;
@@ -77,20 +65,12 @@ public class Matiere {
 		this.titre = titre;
 	}
 
-	public Date getDateDebut() {
-		return dateDebut;
+	public Integer getDuree() {
+		return duree;
 	}
 
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
-	}
-
-	public Date getDateFin() {
-		return dateFin;
-	}
-
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
+	public void setDuree(Integer duree) {
+		this.duree = duree;
 	}
 
 	public String getObjectif() {
