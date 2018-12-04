@@ -20,6 +20,9 @@ public class Formateur extends Personne{
 	@OneToOne
 	@JoinColumn(name="login")
 	private Login login;
+	
+	@OneToMany(mappedBy="formateur")
+	private Set<Module> modules;
 
 	
 	public Formateur() {
@@ -37,6 +40,14 @@ public class Formateur extends Personne{
 
 	public void setFormateurmatiere(Set<FormateurMatiere> formateurmatiere) {
 		this.formateurmatiere = formateurmatiere;
+	}
+
+	public Set<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<Module> modules) {
+		this.modules = modules;
 	}
 
 	public Login getLogin() {

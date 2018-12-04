@@ -1,11 +1,13 @@
 package sopra.formation.projet.model;
 
+import java.util.Set;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -17,9 +19,8 @@ public class Stagiaire extends Personne {
 	@JoinColumn(name="ordinateur")
 	private Ordinateur ordinateur;
 	
-	@ManyToOne
-	@JoinColumn(name="module")
-	private Module module;
+	@OneToMany(mappedBy="key.stagiaire")
+	private Set<ModuleStagiaire> modulesStagiaires;
 	
 	@Enumerated(EnumType.STRING)
 	private Profil profil;
@@ -35,12 +36,12 @@ public class Stagiaire extends Personne {
 		this.ordinateur = ordinateur;
 	}
 
-	public Module getModule() {
-		return module;
+	public Set<ModuleStagiaire> getModulesStagiaires() {
+		return modulesStagiaires;
 	}
 
-	public void setModule(Module module) {
-		this.module = module;
+	public void setModulesStagiaires(Set<ModuleStagiaire> modulesStagiaires) {
+		this.modulesStagiaires = modulesStagiaires;
 	}
 
 	public Profil getProfil() {
