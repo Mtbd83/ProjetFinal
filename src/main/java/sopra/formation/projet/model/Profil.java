@@ -17,5 +17,5 @@ public enum Profil {
 	public void setNiveau(String niveau) {
 		this.niveau = niveau;
 	}
-	
+
 }
