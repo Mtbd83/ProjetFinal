@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,7 +16,7 @@ public class Stagiaire extends Personne {
 	@JoinColumn(name="ordinateur")
 	private Ordinateur ordinateur;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="module")
 	private Module module;
 	
