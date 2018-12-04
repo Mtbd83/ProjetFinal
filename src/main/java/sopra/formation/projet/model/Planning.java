@@ -3,8 +3,6 @@ package sopra.formation.projet.model;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,15 +35,9 @@ public class Planning {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateFin;
 	
-	
 	@OneToOne
 	@JoinColumn(name = "gestionnaire")
 	private Gestionnaire gestionnaire;
-		
-	@OneToOne
-	@JoinColumn(name = "ordinateur")
-	private Ordinateur ordi;
-	
 	
 	@OneToOne
 	@JoinColumn(name = "videoprojecteur")
@@ -116,14 +108,6 @@ public class Planning {
 		this.gestionnaire = gestionnaire;
 	}
 
-	public Ordinateur getOrdi() {
-		return ordi;
-	}
-
-	public void setOrdi(Ordinateur ordi) {
-		this.ordi = ordi;
-	}
-
 	public VideoProjecteur getVideoProj() {
 		return videoProj;
 	}
@@ -131,8 +115,6 @@ public class Planning {
 	public void setVideoProj(VideoProjecteur videoProj) {
 		this.videoProj = videoProj;
 	}
-
-
 
 	public Set<Module> getModules() {
 		return modules;
