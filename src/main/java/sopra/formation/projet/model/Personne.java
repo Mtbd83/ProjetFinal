@@ -37,10 +37,8 @@ public abstract class Personne {
 		@AttributeOverride(name= "ville", column = @Column(name = "city_person", length =100)) })
 	private Adresse adresse;
 	@Column(name="mail")
-	@NotEmpty
 	private String mail;
 	@Column(name="number_phone", length=10)
-	@NotEmpty
 	private Integer telephone;
 	@Version
 	private int version;

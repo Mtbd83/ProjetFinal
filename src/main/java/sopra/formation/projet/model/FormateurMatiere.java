@@ -10,7 +10,6 @@ public class FormateurMatiere {
 	@EmbeddedId
 	private FormateurMatiereKey key;
 	
-	@NotEmpty
 	private String expertise;
 
 	public FormateurMatiere() {
