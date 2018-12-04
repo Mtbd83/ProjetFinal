@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -15,8 +16,9 @@ public class Formateur extends Personne{
 	@OneToMany(mappedBy="key.formateur")
 	@Column(name="matiere")
 	private Set<FormateurMatiere> formateurmatiere;
-	@OneToOne(mappedBy="formateur")
-	@Column(name="login")
+	
+	@OneToOne
+	@JoinColumn(name="login")
 	private Login login;
 
 	
