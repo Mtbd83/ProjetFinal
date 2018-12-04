@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+
 @Entity
 @DiscriminatorValue("Stagiaire")
 public class Stagiaire extends Personne {
