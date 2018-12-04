@@ -52,21 +52,21 @@ public class Module {
 		this.matieres = matieres;
 	}
 
-//	public Set<Stagiaire> getStagiaires() {
-//		return stagiaires;
-//	}
-//
-//	public void setStagiaires(Set<Stagiaire> stagiaires) {
-//		this.stagiaires = stagiaires;
-//	}
-//
-//	public Planning getPlanning() {
-//		return planning;
-//	}
-//
-//	public void setPlanning(Planning planning) {
-//		this.planning = planning;
-//	}
+	public Set<Stagiaire> getStagiaires() {
+		return stagiaires;
+	}
+
+	public void setStagiaires(Set<Stagiaire> stagiaires) {
+		this.stagiaires = stagiaires;
+	}
+
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
 
 	public int getVersion() {
 		return version;
