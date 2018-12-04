@@ -1,5 +1,6 @@
 package sopra.formation.projet.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,8 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @SequenceGenerator(name = "seqModule", sequenceName = "seq_module", initialValue = 1, allocationSize = 1)
@@ -20,8 +26,8 @@ public class Module {
 	@GeneratedValue(generator = "seqModule", strategy = GenerationType.SEQUENCE)
 	private Integer idModule;
 	
-	@OneToMany(mappedBy="module")
-	private Set<Matiere> matieres;
+	@OneToOne(mappedBy="module")
+	private Matiere matiere;
 	
 	@OneToMany(mappedBy="module")
 	private Set<Stagiaire> stagiaires;
@@ -29,6 +35,14 @@ public class Module {
 	@ManyToOne
 	@JoinColumn(name="planning_id")
 	private Planning planning;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date dateDebut;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date dateFin;
 	
 	@Version
 	private int version;
@@ -44,29 +58,45 @@ public class Module {
 		this.idModule = idModule;
 	}
 
-	public Set<Matiere> getMatieres() {
-		return matieres;
+	public Matiere getMatiere() {
+		return matiere;
 	}
 
-	public void setMatieres(Set<Matiere> matieres) {
-		this.matieres = matieres;
+	public void setMatiere(Matiere matiere) {
+		this.matiere = matiere;
 	}
 
-//	public Set<Stagiaire> getStagiaires() {
-//		return stagiaires;
-//	}
-//
-//	public void setStagiaires(Set<Stagiaire> stagiaires) {
-//		this.stagiaires = stagiaires;
-//	}
-//
-//	public Planning getPlanning() {
-//		return planning;
-//	}
-//
-//	public void setPlanning(Planning planning) {
-//		this.planning = planning;
-//	}
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	public Set<Stagiaire> getStagiaires() {
+		return stagiaires;
+	}
+
+	public void setStagiaires(Set<Stagiaire> stagiaires) {
+		this.stagiaires = stagiaires;
+	}
+
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
 
 	public int getVersion() {
 		return version;
