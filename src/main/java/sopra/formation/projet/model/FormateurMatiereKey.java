@@ -10,9 +10,9 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class FormateurMatiereKey implements Serializable {
 
-//	@ManyToOne
-//	@JoinColumn(name = "idFormateur")
-//	private Formateur formateur;
+	@ManyToOne
+	@JoinColumn(name = "idFormateur")
+	private Formateur formateur;
 	
 	@ManyToOne
 	@JoinColumn(name = "idMatiere")
@@ -21,18 +21,18 @@ public class FormateurMatiereKey implements Serializable {
 	public FormateurMatiereKey() {
 	}
 	
-	public FormateurMatiereKey(Matiere matiere) {
-//		this.formateur = formateur;
+	public FormateurMatiereKey(Matiere matiere, Formateur formateur) {
+		this.formateur = formateur;
 		this.matiere = matiere;
 	}
 
-//	public Formateur getFormateur() {
-//		return formateur;
-//	}
-//
-//	public void setFormateur(Formateur formateur) {
-//		this.formateur = formateur;
-//	}
+	public Formateur getFormateur() {
+		return formateur;
+	}
+
+	public void setFormateur(Formateur formateur) {
+		this.formateur = formateur;
+	}
 
 	public Matiere getMatiere() {
 		return matiere;
@@ -46,7 +46,7 @@ public class FormateurMatiereKey implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-//		result = prime * result + ((formateur == null) ? 0 : formateur.hashCode());
+		result = prime * result + ((formateur == null) ? 0 : formateur.hashCode());
 		result = prime * result + ((matiere == null) ? 0 : matiere.hashCode());
 		return result;
 	}
@@ -60,11 +60,11 @@ public class FormateurMatiereKey implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		FormateurMatiereKey other = (FormateurMatiereKey) obj;
-//		if (formateur == null) {
-//			if (other.formateur != null)
-//				return false;
-//		} else if (!formateur.equals(other.formateur))
-//			return false;
+		if (formateur == null) {
+			if (other.formateur != null)
+				return false;
+		} else if (!formateur.equals(other.formateur))
+			return false;
 		if (matiere == null) {
 			if (other.matiere != null)
 				return false;
