@@ -84,21 +84,17 @@ public class MatiereRestController {
 		if (br.hasErrors() || matiere.getIdMatiere() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Matiere opt = matiereService.findMatiere(matiere.getIdMatiere());
-			if (opt != null) {
-				Matiere matiereEnBase = opt;
-				matiereEnBase.setTitre(matiere.getTitre());
-				matiereEnBase.setDuree(matiere.getDuree());
-				matiereEnBase.setObjectif(matiere.getObjectif());
-				matiereEnBase.setPrerequis(matiere.getPrerequis());
-				matiereEnBase.setContenu(matiere.getContenu());
-				matiereEnBase.setModule(matiere.getModule());
-				matiereEnBase.setFormateursMatieres(matiere.getFormateursMatieres());
+				Matiere matiereEnBase = matiereService.findMatiere(matiere.getIdMatiere());
+				matiereEnBase.setTitre(matiereEnBase.getTitre());
+				matiereEnBase.setDuree(matiereEnBase.getDuree());
+				matiereEnBase.setObjectif(matiereEnBase.getObjectif());
+				matiereEnBase.setPrerequis(matiereEnBase.getPrerequis());
+				matiereEnBase.setContenu(matiereEnBase.getContenu());
+				matiereEnBase.setModule(matiereEnBase.getModule());
+				matiereEnBase.setFormateursMatieres(matiereEnBase.getFormateursMatieres());
 				matiereService.createMatiere(matiereEnBase);
-				response = new ResponseEntity<Matiere>(matiereEnBase, HttpStatus.OK);
-			} else {
+				response = new ResponseEntity<Matiere>(matiereEnBase, HttpStatus.OK);	
 				response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-			}
 		}
 		return response;
 	}

@@ -68,21 +68,16 @@ public class FormateurRestController {
 		if(result.hasErrors() || formateur.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Formateur f = formateurService.showFormateurById(formateur.getId());
-			if(f != null) {
-				Formateur formateurEnBase = f;
-				formateurEnBase.setNom(f.getNom());
-				formateurEnBase.setPrenom(f.getPrenom());
-				formateurEnBase.setTelephone(f.getTelephone());
-				formateurEnBase.setMail(f.getMail());
-				formateurEnBase.setAdresse(f.getAdresse());
-				formateurEnBase.setModules(f.getModules());
-				formateurEnBase.setFormateurmatiere(f.getFormateurmatiere());
-				formateurService.modifFormateur(formateurEnBase);
-				response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
-			} else {
-				response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-			}
+			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
+			formateurEnBase.setNom(formateurEnBase.getNom());
+			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
+			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
+			formateurEnBase.setMail(formateurEnBase.getMail());
+			formateurEnBase.setAdresse(formateurEnBase.getAdresse());
+			formateurEnBase.setModules(formateurEnBase.getModules());
+			formateurEnBase.setFormateurmatiere(formateurEnBase.getFormateurmatiere());
+			formateurService.modifFormateur(formateurEnBase);
+			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
 		}
 		return response;
 	}
