@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import sopra.formation.projet.model.Materiel;
-import sopra.formation.projet.service.MaterielService;
+import sopra.formation.projet.model.Salle;
+import sopra.formation.projet.service.SalleService;
 
 @RestController
-@RequestMapping("/rest/materiel")
+@RequestMapping("/rest/materiel/salle")
 @CrossOrigin(origins = {"*"})
-public class MaterielRestController {
+public class SalleRestController {
 
 	@Autowired
-	private MaterielService materielService;
+	private SalleService salleService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Materiel>> findAll(){
-		return new ResponseEntity<>(materielService.showAll(), HttpStatus.OK);
+	public ResponseEntity<List<Salle>> findAllSalle(){
+		return new ResponseEntity<>(salleService.showAllSalle(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createMateriel(@Valid @RequestBody Materiel materiel, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createSalle(@Valid @RequestBody Salle salle, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			materielService.createMateriel(materiel);
+			salleService.createSalle(salle);
 			HttpHeaders header = new HttpHeaders();
-			header.setLocation(uCB.path("/rest/materiel/{id}").buildAndExpand(materiel.getId()).toUri());
+			header.setLocation(uCB.path("/rest/materiel/salle/{id}").buildAndExpand(salle.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
 		}
 		return response;
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Materiel> findById(@PathVariable(name="id") Integer id) {
-		Materiel materiel = materielService.showMaterielById(id);
-		ResponseEntity<Materiel> response = null;
-		if(materiel != null) {
-			response = new ResponseEntity<Materiel>(materiel, HttpStatus.OK);
+	public ResponseEntity<Salle> findById(@PathVariable(name="id") Integer id) {
+		Salle salle = salleService.showSalleById(id);
+		ResponseEntity<Salle> response = null;
+		if(salle != null) {
+			response = new ResponseEntity<Salle>(salle, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -63,16 +63,14 @@ public class MaterielRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	public ResponseEntity<Materiel> update(@Valid @RequestBody Materiel materiel, BindingResult result){
-		ResponseEntity<Materiel> response = null;
-		if(result.hasErrors() || materiel.getId() == null) {
+	public ResponseEntity<Salle> update(@Valid @RequestBody Salle salle, BindingResult result){
+		ResponseEntity<Salle> response = null;
+		if(result.hasErrors() || salle.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
-			materielEnBase.setCode(materielEnBase.getCode());
-			materielEnBase.setCout(materielEnBase.getCout());
-			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
-			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);
+			Salle salleEnBase = salleService.showSalleById(salle.getId());
+			salleEnBase.setCode(salleEnBase.getCapacite());
+			response = new ResponseEntity<Salle>(salleEnBase, HttpStatus.OK);
 
 		}
 		return response;
@@ -80,14 +78,15 @@ public class MaterielRestController {
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Materiel materiel = materielService.showMaterielById(id);
+		Salle salle = salleService.showSalleById(id);
 		ResponseEntity<Void> response = null;
-		if(materiel != null) {
-			materielService.deleteMateriel(materiel);
+		if(salle != null) {
+			salleService.deleteSalle(salle);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return response;
 	}
+	
 }

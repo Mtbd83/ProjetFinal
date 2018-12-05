@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import sopra.formation.projet.model.Materiel;
 import sopra.formation.projet.model.MaterielPlanning;
 import sopra.formation.projet.model.MaterielPlanningKey;
+import sopra.formation.projet.model.Ordinateur;
 import sopra.formation.projet.model.Planning;
+import sopra.formation.projet.model.Salle;
+import sopra.formation.projet.model.VideoProjecteur;
 import sopra.formation.projet.repository.MaterielPlanningRepository;
 import sopra.formation.projet.repository.MaterielRepository;
 
@@ -60,8 +63,8 @@ public class MaterielPlanningService {
 	}
 
 
-	public List<Materiel> showSalleLibre(){
-		List<Materiel> salles = materielRepository.findAllSalle();
+	public List<Salle> showSalleLibre(){
+		List<Salle> salles = materielRepository.findAllSalle();
 		List<MaterielPlanning> materielsPlanning = materielPlanningRepository.findAll();
 		for(Materiel salle: salles) {
 			for(MaterielPlanning materielPlanning : materielsPlanning) {
@@ -73,8 +76,8 @@ public class MaterielPlanningService {
 		return salles;
 	}
 	
-	public List<Materiel> showOrdinateurLibre(){
-		List<Materiel> ordinateurs = materielRepository.findAllOrdinateur();
+	public List<Ordinateur> showOrdinateurLibre(){
+		List<Ordinateur> ordinateurs = materielRepository.findAllOrdinateur();
 		List<MaterielPlanning> materielsPlanning = materielPlanningRepository.findAll();
 		for(Materiel ordinateur: ordinateurs) {
 			for(MaterielPlanning materielPlanning : materielsPlanning) {
@@ -86,8 +89,8 @@ public class MaterielPlanningService {
 		return ordinateurs;
 	}
 	
-	public List<Materiel> showVideoProjLibre(){
-		List<Materiel> videoProjecteurs = materielRepository.findAllVideoProjecteur();
+	public List<VideoProjecteur> showVideoProjLibre(){
+		List<VideoProjecteur> videoProjecteurs = materielRepository.findAllVideoProjecteur();
 		List<MaterielPlanning> materielsPlanning = materielPlanningRepository.findAll();
 		for(Materiel videoProjecteur: videoProjecteurs) {
 			for(MaterielPlanning materielPlanning : materielsPlanning) {
