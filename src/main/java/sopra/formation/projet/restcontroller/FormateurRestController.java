@@ -68,8 +68,7 @@ public class FormateurRestController {
 		if(result.hasErrors() || formateur.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Formateur f = formateurService.showFormateurById(formateur.getId());
-			Formateur formateurEnBase = f;
+			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
 			formateurEnBase.setNom(formateurEnBase.getNom());
 			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
 			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
