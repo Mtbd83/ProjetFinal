@@ -9,19 +9,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("Formateur")
 public class Formateur extends Personne{
 	
 	@OneToMany(mappedBy="key.formateur")
 	@Column(name="matiere")
+	@JsonView(JsonViews.Common.class)
 	private Set<FormateurMatiere> formateurmatiere;
 	
 	@OneToOne
 	@JoinColumn(name="login")
+	@JsonView(JsonViews.Common.class)
 	private Login login;
 	
 	@OneToMany(mappedBy="formateur")
+	@JsonView(JsonViews.Common.class)
 	private Set<Module> modules;
 
 	

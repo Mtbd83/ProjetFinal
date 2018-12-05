@@ -18,6 +18,10 @@ import javax.persistence.Version;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.projet.model.JsonViews;
+
 @Entity
 @Table(name="planning")
 @SequenceGenerator(name="seqIdPlanning",sequenceName="seq_id_planning", initialValue=1,allocationSize=1)
@@ -25,30 +29,37 @@ public class Planning {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqIdPlanning") 
+	@JsonView(JsonViews.Common.class)
 	private Integer idPlanning;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonView(JsonViews.Common.class)
 	private Date dateDebut;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonView(JsonViews.Common.class)
 	private Date dateFin;
 	
 	@OneToOne
 	@JoinColumn(name = "gestionnaire")
+	@JsonView(JsonViews.Common.class)
 	private Gestionnaire gestionnaire;
 	
 	@OneToOne
 	@JoinColumn(name = "videoprojecteur")
+	@JsonView(JsonViews.Common.class)
 	private VideoProjecteur videoProj;
 	
 	@OneToMany(mappedBy="planning")
+	@JsonView(JsonViews.Common.class)
 	private Set<Module> modules;
 	
 	
 	@OneToOne
 	@JoinColumn(name = "salle")
+	@JsonView(JsonViews.Common.class)
 	private Salle salle;
 	
 	@Version
@@ -56,6 +67,7 @@ public class Planning {
 	
 
 	@OneToMany(mappedBy = "key.planning")
+	@JsonView(JsonViews.Common.class)
 	private Set<MaterielPlanning> materielPlanning;
 	
 	
