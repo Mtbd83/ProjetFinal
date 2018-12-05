@@ -27,8 +27,8 @@ public class SalleService {
 		Salle s = new Salle();
 		if(opt.isPresent()) {
 			s = opt.get();
+			materielRepository.save(s);
 		}
-		materielRepository.save(s);
 	}
 
 	public void deleteSalleById(Integer id) {

@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.projet.model.JsonViews;
 import sopra.formation.projet.model.Planning;
 import sopra.formation.projet.service.PlanningService;
 
@@ -33,12 +36,20 @@ public class PlanningRestController {
 	
 	
 	@GetMapping(path= {"","/"})
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Planning>> findAll(){
-		return new ResponseEntity<>(planningService.showAll(),HttpStatus.OK);
+		return new ResponseEntity<>(planningService.showAllWithModules(),HttpStatus.OK);
+	}
+	
+	@GetMapping(path= {"/module"})
+	@JsonView(JsonViews.Common.class)
+	public ResponseEntity<List<Planning>> findAllWithPeronnes() {
+		return new ResponseEntity<>(planningService.showAllWithModules(),HttpStatus.OK);
 	}
 	
 	
 	@PostMapping(path= {"","/"})
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> create(@Valid @RequestBody Planning planning, BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(br.hasErrors()) {
@@ -54,6 +65,7 @@ public class PlanningRestController {
 	}
 	
 	@GetMapping(value="/{idPlanning}")
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Planning>findById(@PathVariable (name="idPlanning") Integer id){
 		Planning planning = planningService.showById(id);
 		ResponseEntity<Planning> response = null;
@@ -66,6 +78,7 @@ public class PlanningRestController {
 	}
 	
 	@PutMapping(path= {"","/"})
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Planning> update(@Valid @RequestBody Planning planning,BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Planning> response = null;
 		if(br.hasErrors()||planning.getIdPlanning()==null) {
@@ -85,6 +98,7 @@ public class PlanningRestController {
 	}
 	
 	@DeleteMapping(value="/{idPlanning}")
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> delete(@PathVariable (name="idPlanning")Integer id){
 		ResponseEntity<Void> response = null;
 		Planning planning = planningService.showById(id);
