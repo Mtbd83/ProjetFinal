@@ -96,11 +96,6 @@ public class MaterielService {
 		return videoProjecteur;
 	}
 	
-	public List<Materiel> showdisponibilite(Date dateDebut, Date dateFin){
-		Salle salle = new Salle();
-		planningService.showBySalle(salle);
-		return materielRepository.findByDisponibilite(true);
-	}
 	
 }
 

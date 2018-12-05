@@ -30,6 +30,15 @@ public class PlanningService {
 		}
 	}
 	
+	public Planning showById(Integer idPlanning) {
+		Optional<Planning> opt = planningRepo.findById(idPlanning);
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
+	
+	
 	public List<Planning> showAll(){
 		return planningRepo.findAll();
 	}
@@ -67,6 +76,12 @@ public class PlanningService {
 			return null;
 		}
 	}
+	
+	public List<Planning> showByDateDebutBetween(Date date1, Date date2){
+		List<Planning> plannings= planningRepo.findByDateDebutBetween(date1, date2);
+		return plannings;
+	}
+	
 	
 
 }

@@ -47,12 +47,7 @@ public class ModuleService {
 		}
 	}
 	
-//	public void updateModule(Integer idModule) {
-//		Optional<Module> opt = moduleRepo.findById(idModule);
-//		if(opt.isPresent()) {
-//			moduleRepo.save(opt.get());
-//		}
-//	}
+
 	
 	public void updateModule(Module module) {
 	Optional<Module> opt = moduleRepo.findById(module.getIdModule());
@@ -110,6 +105,14 @@ public class ModuleService {
 		}
 	}
 	
+	public Formateur showFormateurByModuleId(Integer idModule) {
+		Optional<Module> module = moduleRepo.findById(idModule);
+		if (module.isPresent()) {
+			return module.get().getFormateur();
+		} else {
+			return null;
+		}
+	}
 
 
 }
