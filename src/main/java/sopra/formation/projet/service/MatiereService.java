@@ -30,8 +30,8 @@ public class MatiereService {
 		Matiere m = new Matiere();
 		if(opt.isPresent()) {
 			m = opt.get();
+			matiereRepository.save(m);
 		}
-		matiereRepository.save(m);
 	}
 
 	public void deleteMatiere(Matiere matiere) {

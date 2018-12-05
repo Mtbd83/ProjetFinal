@@ -27,8 +27,8 @@ public class OrdinateurService {
 		Ordinateur o = new Ordinateur();
 		if(opt.isPresent()) {
 			o = opt.get();
+			materielRepository.save(o);
 		}
-		materielRepository.save(o);
 	}
 
 	public void deleteOrdinateurById(Integer id) {
