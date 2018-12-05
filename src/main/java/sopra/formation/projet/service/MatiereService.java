@@ -24,6 +24,15 @@ public class MatiereService {
 			matiereRepository.save(matiere);
 		}
 	}
+	
+	public void update(Matiere matiere) {
+		Optional<Matiere> opt = matiereRepository.findById(matiere.getIdMatiere());
+		Matiere m = new Matiere();
+		if(opt.isPresent()) {
+			m = opt.get();
+		}
+		matiereRepository.save(m);
+	}
 
 	public void deleteMatiere(Matiere matiere) {
 		if (matiere != null) {
@@ -45,23 +54,4 @@ public class MatiereService {
 		return matiere;
 	}
 
-	public void update(Matiere matiere, String titre, Integer duree, String objectif, String prerequis, String contenu, Module module, Set<FormateurMatiere> formateursMatieres) {
-		if (titre != matiere.getTitre()) {
-			matiere.setTitre(titre);
-		} else if ( duree != matiere.getDuree()) {
-				matiere.setDuree(duree);
-		}else if (objectif != matiere.getObjectif()) {
-				matiere.setObjectif(objectif);
-			}else if (prerequis != matiere.getPrerequis()) {
-					matiere.setPrerequis(prerequis);
-			}else if (contenu != matiere.getContenu()) {
-					matiere.setContenu(contenu);
-			}else if (module != matiere.getModule()) {
-				matiere.setModule(module);
-			}else if (formateursMatieres != matiere.getFormateursMatieres()) {
-				matiere.setFormateursMatieres(formateursMatieres);		
-			}
-	
-		matiereRepository.save(matiere);
-	}
 }

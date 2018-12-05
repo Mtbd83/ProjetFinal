@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sopra.formation.projet.model.Salle;
 import sopra.formation.projet.repository.MaterielRepository;
 
+@Service
 public class SalleService {
 
 	@Autowired
@@ -18,6 +20,15 @@ public class SalleService {
 		if (salle != null) {
 			materielRepository.save(salle);
 		}
+	}
+	
+	public void update(Salle salle) {
+		Optional<Salle> opt = materielRepository.findSalleById(salle.getId());
+		Salle s = new Salle();
+		if(opt.isPresent()) {
+			s = opt.get();
+		}
+		materielRepository.save(s);
 	}
 
 	public void deleteSalleById(Integer id) {

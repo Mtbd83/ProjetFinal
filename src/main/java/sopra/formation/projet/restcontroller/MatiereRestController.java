@@ -84,9 +84,7 @@ public class MatiereRestController {
 		if (br.hasErrors() || matiere.getIdMatiere() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Matiere opt = matiereService.findMatiere(matiere.getIdMatiere());
-			if (opt != null) {
-				Matiere matiereEnBase = opt;
+				Matiere matiereEnBase = matiereService.findMatiere(matiere.getIdMatiere());
 				matiereEnBase.setTitre(matiere.getTitre());
 				matiereEnBase.setDuree(matiere.getDuree());
 				matiereEnBase.setObjectif(matiere.getObjectif());
@@ -94,11 +92,8 @@ public class MatiereRestController {
 				matiereEnBase.setContenu(matiere.getContenu());
 				matiereEnBase.setModule(matiere.getModule());
 				matiereEnBase.setFormateursMatieres(matiere.getFormateursMatieres());
-				matiereService.createMatiere(matiereEnBase);
-				response = new ResponseEntity<Matiere>(matiereEnBase, HttpStatus.OK);
-			} else {
-				response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-			}
+				matiereService.update(matiereEnBase);
+				response = new ResponseEntity<Matiere>(matiereEnBase, HttpStatus.OK);	
 		}
 		return response;
 	}
