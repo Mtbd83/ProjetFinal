@@ -6,16 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("Salle")
 public class Salle extends Materiel{
 
-	
+	@JsonView(JsonViews.Common.class)
 	@Column(name = "capacite_nbSalle")
 	private Integer capacite;
 	
 	@OneToOne
 	@JoinColumn(name = "planning_salle_id")
+	@JsonView(JsonViews.Common.class)
 	private Planning planning;
 	
 	public Salle() {
