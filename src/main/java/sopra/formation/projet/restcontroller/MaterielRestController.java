@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import sopra.formation.projet.model.Formateur;
-import sopra.formation.projet.service.FormateurService;
+import sopra.formation.projet.model.Materiel;
+import sopra.formation.projet.service.MaterielService;
 
 @RestController
-@RequestMapping("/rest/formateur")
+@RequestMapping("/rest/materiel")
 @CrossOrigin(origins = {"*"})
-public class FormateurRestController {
+public class MaterielRestController {
 
 	@Autowired
-	private FormateurService formateurService;
+	private MaterielService materielService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Formateur>> findAll(){
-		return new ResponseEntity<>(formateurService.listeFormateurs(), HttpStatus.OK);
+	public ResponseEntity<List<Materiel>> findAll(){
+		return new ResponseEntity<>(materielService.showAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createFormateur(@Valid @RequestBody Formateur formateur, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createMateriel(@Valid @RequestBody Materiel materiel, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			formateurService.creerFormateur(formateur);
+			materielService.createMateriel(materiel);
 			HttpHeaders header = new HttpHeaders();
-			header.setLocation(uCB.path("/rest/formateur/{id}").buildAndExpand(formateur.getId()).toUri());
+			header.setLocation(uCB.path("/rest/materiel/{id}").buildAndExpand(materiel.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
 		}
 		return response;
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Formateur> findById(@PathVariable(name="id") Integer id) {
-		Formateur formateur = formateurService.showFormateurById(id);
-		ResponseEntity<Formateur> response = null;
-		if(formateur != null) {
-			response = new ResponseEntity<Formateur>(formateur, HttpStatus.OK);
+	public ResponseEntity<Materiel> findById(@PathVariable(name="id") Integer id) {
+		Materiel materiel = materielService.showMaterielById(id);
+		ResponseEntity<Materiel> response = null;
+		if(materiel != null) {
+			response = new ResponseEntity<Materiel>(materiel, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -63,31 +63,27 @@ public class FormateurRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	public ResponseEntity<Formateur> update(@Valid @RequestBody Formateur formateur, BindingResult result){
-		ResponseEntity<Formateur> response = null;
-		if(result.hasErrors() || formateur.getId() == null) {
+	public ResponseEntity<Materiel> update(@Valid @RequestBody Materiel materiel, BindingResult result){
+		ResponseEntity<Materiel> response = null;
+		if(result.hasErrors() || materiel.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
-			formateurEnBase.setNom(formateurEnBase.getNom());
-			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
-			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
-			formateurEnBase.setMail(formateurEnBase.getMail());
-			formateurEnBase.setAdresse(formateurEnBase.getAdresse());
-			formateurEnBase.setModules(formateurEnBase.getModules());
-			formateurEnBase.setFormateurmatiere(formateurEnBase.getFormateurmatiere());
-			formateurService.modifFormateur(formateurEnBase);
-			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
+			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
+			materielEnBase.setCode(materielEnBase.getCode());
+			materielEnBase.setCout(materielEnBase.getCout());
+			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
+			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);
+
 		}
 		return response;
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Formateur formateur = formateurService.showFormateurById(id);
+		Materiel materiel = materielService.showMaterielById(id);
 		ResponseEntity<Void> response = null;
-		if(formateur != null) {
-			formateurService.deleteFormateur(formateur);
+		if(materiel != null) {
+			materielService.deleteMateriel(materiel);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,6 +1,5 @@
 package sopra.formation.projet.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sopra.formation.projet.model.Materiel;
-import sopra.formation.projet.model.Module;
+import sopra.formation.projet.model.Ordinateur;
 import sopra.formation.projet.model.Salle;
+import sopra.formation.projet.model.VideoProjecteur;
 import sopra.formation.projet.repository.MaterielRepository;
 
 @Service
@@ -18,8 +18,6 @@ public class MaterielService {
 	@Autowired
 	private MaterielRepository materielRepository;
 	
-	@Autowired
-	private PlanningService planningService;
 	
 	public void createMateriel(Materiel materiel) {
 		if (materiel != null) {
@@ -43,21 +41,21 @@ public class MaterielService {
 	}
 	
 	public void deleteAllOrdinateur() {
-		List<Materiel> materiels = materielRepository.findAllOrdinateur();
+		List<Ordinateur> materiels = materielRepository.findAllOrdinateur();
 		for(Materiel ordinateur : materiels) {
 			deleteMateriel(ordinateur.getId());
 		}
 	}
 	
 	public void deleteAllSalle() {
-		List<Materiel> materiels = materielRepository.findAllSalle();
+		List<Salle> materiels = materielRepository.findAllSalle();
 		for(Materiel salle : materiels) {
 			deleteMateriel(salle.getId());
 		}
 	}
 	
 	public void deleteAllVideoProjecteur() {
-		List<Materiel> materiels = materielRepository.findAllVideoProjecteur();
+		List<VideoProjecteur> materiels = materielRepository.findAllVideoProjecteur();
 		for(Materiel videoProjecteur : materiels) {
 			deleteMateriel(videoProjecteur.getId());
 		}
@@ -71,6 +69,15 @@ public class MaterielService {
 		List<Materiel> materiels = materielRepository.findAll();
 		return materiels;
 	}
+	
+	public Materiel showMaterielById(Integer id) {
+		Optional<Materiel> opt = materielRepository.findById(id);
+		Materiel materiel = null;
+		if (opt.isPresent()) {
+			materiel = opt.get();
+		}
+		return materiel;
+	}
 
 	public Materiel showMateriel(Integer id) {
 		Optional<Materiel> opt = materielRepository.findById(id);
@@ -81,19 +88,28 @@ public class MaterielService {
 		return materiel;
 	}
 	
-	public List<Materiel> showOrdinateur(){
-		List<Materiel> ordinateur = materielRepository.findAllOrdinateur();
+	public List<Ordinateur> showOrdinateur(){
+		List<Ordinateur> ordinateur = materielRepository.findAllOrdinateur();
 		return ordinateur;
 	}
 	
-	public List<Materiel> showSalle(){
-		List<Materiel> salle = materielRepository.findAllSalle();
-		return salle;
+	public List<Salle> showSalle(){
+		List<Salle> salles = materielRepository.findAllSalle();
+		return salles;
 	}
 	
-	public List<Materiel> showVideoProjecteur(){
-		List<Materiel> videoProjecteur = materielRepository.findAllVideoProjecteur();
+	public List<VideoProjecteur> showVideoProjecteur(){
+		List<VideoProjecteur> videoProjecteur = materielRepository.findAllVideoProjecteur();
 		return videoProjecteur;
+	}
+	
+	public void modifMateriel(Materiel materiel) {
+		List<Materiel> materiels = materielRepository.findAll();
+		for(Materiel m : materiels) {
+			if(m.getId().equals(m.getId())) {
+				materielRepository.save(m);
+			}
+		}
 	}
 	
 	

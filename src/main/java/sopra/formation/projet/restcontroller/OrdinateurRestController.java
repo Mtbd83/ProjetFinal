@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import sopra.formation.projet.model.Formateur;
-import sopra.formation.projet.service.FormateurService;
+import sopra.formation.projet.model.Ordinateur;
+import sopra.formation.projet.service.OrdinateurService;
 
 @RestController
-@RequestMapping("/rest/formateur")
+@RequestMapping("/rest/materiel/ordinateur")
 @CrossOrigin(origins = {"*"})
-public class FormateurRestController {
+public class OrdinateurRestController {
 
 	@Autowired
-	private FormateurService formateurService;
+	private OrdinateurService ordinateurService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Formateur>> findAll(){
-		return new ResponseEntity<>(formateurService.listeFormateurs(), HttpStatus.OK);
+	public ResponseEntity<List<Ordinateur>> findAllOrdinateur(){
+		return new ResponseEntity<>(ordinateurService.showAllOrdinateur(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createFormateur(@Valid @RequestBody Formateur formateur, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createOrdinateur(@Valid @RequestBody Ordinateur ordinateur, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			formateurService.creerFormateur(formateur);
+			ordinateurService.createOrdinateur(ordinateur);
 			HttpHeaders header = new HttpHeaders();
-			header.setLocation(uCB.path("/rest/formateur/{id}").buildAndExpand(formateur.getId()).toUri());
+			header.setLocation(uCB.path("/rest/materiel/ordinateur/{id}").buildAndExpand(ordinateur.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
 		}
 		return response;
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Formateur> findById(@PathVariable(name="id") Integer id) {
-		Formateur formateur = formateurService.showFormateurById(id);
-		ResponseEntity<Formateur> response = null;
-		if(formateur != null) {
-			response = new ResponseEntity<Formateur>(formateur, HttpStatus.OK);
+	public ResponseEntity<Ordinateur> findById(@PathVariable(name="id") Integer id) {
+		Ordinateur ordinateur = ordinateurService.showOrdinateurById(id);
+		ResponseEntity<Ordinateur> response = null;
+		if(ordinateur != null) {
+			response = new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -63,31 +63,28 @@ public class FormateurRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	public ResponseEntity<Formateur> update(@Valid @RequestBody Formateur formateur, BindingResult result){
-		ResponseEntity<Formateur> response = null;
-		if(result.hasErrors() || formateur.getId() == null) {
+	public ResponseEntity<Ordinateur> update(@Valid @RequestBody Ordinateur ordinateur, BindingResult result){
+		ResponseEntity<Ordinateur> response = null;
+		if(result.hasErrors() || ordinateur.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
-			formateurEnBase.setNom(formateurEnBase.getNom());
-			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
-			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
-			formateurEnBase.setMail(formateurEnBase.getMail());
-			formateurEnBase.setAdresse(formateurEnBase.getAdresse());
-			formateurEnBase.setModules(formateurEnBase.getModules());
-			formateurEnBase.setFormateurmatiere(formateurEnBase.getFormateurmatiere());
-			formateurService.modifFormateur(formateurEnBase);
-			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
+			Ordinateur ordinateurEnBase = ordinateurService.showOrdinateurById(ordinateur.getId());
+			ordinateurEnBase.setCode(ordinateurEnBase.getDisqueDur());
+			ordinateurEnBase.setRam(ordinateurEnBase.getRam());
+			ordinateurEnBase.setProcesseur(ordinateurEnBase.getProcesseur());
+			ordinateurEnBase.setAchatOrdi(ordinateurEnBase.getAchatOrdi());
+			response = new ResponseEntity<Ordinateur>(ordinateurEnBase, HttpStatus.OK);
+
 		}
 		return response;
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Formateur formateur = formateurService.showFormateurById(id);
+		Ordinateur ordinateur = ordinateurService.showOrdinateurById(id);
 		ResponseEntity<Void> response = null;
-		if(formateur != null) {
-			formateurService.deleteFormateur(formateur);
+		if(ordinateur != null) {
+			ordinateurService.deleteOrdinateur(ordinateur);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);

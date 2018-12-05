@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import sopra.formation.projet.model.Formateur;
-import sopra.formation.projet.service.FormateurService;
+import sopra.formation.projet.model.VideoProjecteur;
+import sopra.formation.projet.service.VideoProjecteurService;
 
 @RestController
-@RequestMapping("/rest/formateur")
+@RequestMapping("/rest/materiel/videoprojecteur")
 @CrossOrigin(origins = {"*"})
-public class FormateurRestController {
+public class VideoProjecteurRestController {
 
 	@Autowired
-	private FormateurService formateurService;
+	private VideoProjecteurService videoProjecteurService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Formateur>> findAll(){
-		return new ResponseEntity<>(formateurService.listeFormateurs(), HttpStatus.OK);
+	public ResponseEntity<List<VideoProjecteur>> findAllVideoProjecteur(){
+		return new ResponseEntity<>(videoProjecteurService.showAllVideoProjecteur(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createFormateur(@Valid @RequestBody Formateur formateur, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createVideoProjecteur(@Valid @RequestBody VideoProjecteur videoProjecteur, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			formateurService.creerFormateur(formateur);
+			videoProjecteurService.createVideoProjecteur(videoProjecteur);
 			HttpHeaders header = new HttpHeaders();
-			header.setLocation(uCB.path("/rest/formateur/{id}").buildAndExpand(formateur.getId()).toUri());
+			header.setLocation(uCB.path("/rest/materiel/videoProjecteur/{id}").buildAndExpand(videoProjecteur.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
 		}
 		return response;
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Formateur> findById(@PathVariable(name="id") Integer id) {
-		Formateur formateur = formateurService.showFormateurById(id);
-		ResponseEntity<Formateur> response = null;
-		if(formateur != null) {
-			response = new ResponseEntity<Formateur>(formateur, HttpStatus.OK);
+	public ResponseEntity<VideoProjecteur> findById(@PathVariable(name="id") Integer id) {
+		VideoProjecteur videoProjecteur = videoProjecteurService.showVideoProjecteurById(id);
+		ResponseEntity<VideoProjecteur> response = null;
+		if(videoProjecteur != null) {
+			response = new ResponseEntity<VideoProjecteur>(videoProjecteur, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -63,31 +63,24 @@ public class FormateurRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	public ResponseEntity<Formateur> update(@Valid @RequestBody Formateur formateur, BindingResult result){
-		ResponseEntity<Formateur> response = null;
-		if(result.hasErrors() || formateur.getId() == null) {
+	public ResponseEntity<VideoProjecteur> update(@Valid @RequestBody VideoProjecteur videoProjecteur, BindingResult result){
+		ResponseEntity<VideoProjecteur> response = null;
+		if(result.hasErrors() || videoProjecteur.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
-			formateurEnBase.setNom(formateurEnBase.getNom());
-			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
-			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
-			formateurEnBase.setMail(formateurEnBase.getMail());
-			formateurEnBase.setAdresse(formateurEnBase.getAdresse());
-			formateurEnBase.setModules(formateurEnBase.getModules());
-			formateurEnBase.setFormateurmatiere(formateurEnBase.getFormateurmatiere());
-			formateurService.modifFormateur(formateurEnBase);
-			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
+			VideoProjecteur videoProjecteurEnBase = videoProjecteurService.showVideoProjecteurById(videoProjecteur.getId());
+			response = new ResponseEntity<VideoProjecteur>(videoProjecteurEnBase, HttpStatus.OK);
+
 		}
 		return response;
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Formateur formateur = formateurService.showFormateurById(id);
+		VideoProjecteur videoProjecteur = videoProjecteurService.showVideoProjecteurById(id);
 		ResponseEntity<Void> response = null;
-		if(formateur != null) {
-			formateurService.deleteFormateur(formateur);
+		if(videoProjecteur != null) {
+			videoProjecteurService.deleteVideoProjecteur(videoProjecteur);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
