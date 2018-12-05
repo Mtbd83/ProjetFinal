@@ -7,14 +7,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="users")
 public class Login {
 	
 	@Id
+	@JsonView(JsonViews.Common.class)
 	private String username;
+	@JsonView(JsonViews.Common.class)
 	private String password;
+	@JsonView(JsonViews.Common.class)
 	private boolean enable;
+	@JsonView(JsonViews.Common.class)
 	@OneToMany(mappedBy="user")
 	private Set<LoginRole> roles;
 	
