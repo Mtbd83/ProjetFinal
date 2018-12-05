@@ -1,15 +1,13 @@
 package sopra.formation.projet.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sopra.formation.projet.model.Formateur;
 import sopra.formation.projet.model.Materiel;
-import sopra.formation.projet.model.Module;
-import sopra.formation.projet.model.Salle;
 import sopra.formation.projet.repository.MaterielRepository;
 
 @Service
@@ -18,8 +16,6 @@ public class MaterielService {
 	@Autowired
 	private MaterielRepository materielRepository;
 	
-	@Autowired
-	private PlanningService planningService;
 	
 	public void createMateriel(Materiel materiel) {
 		if (materiel != null) {
@@ -71,6 +67,15 @@ public class MaterielService {
 		List<Materiel> materiels = materielRepository.findAll();
 		return materiels;
 	}
+	
+	public Materiel showMaterielById(Integer id) {
+		Optional<Materiel> opt = materielRepository.findById(id);
+		Materiel materiel = null;
+		if (opt.isPresent()) {
+			materiel = opt.get();
+		}
+		return materiel;
+	}
 
 	public Materiel showMateriel(Integer id) {
 		Optional<Materiel> opt = materielRepository.findById(id);
@@ -94,6 +99,15 @@ public class MaterielService {
 	public List<Materiel> showVideoProjecteur(){
 		List<Materiel> videoProjecteur = materielRepository.findAllVideoProjecteur();
 		return videoProjecteur;
+	}
+	
+	public void modifMateriel(Materiel materiel) {
+		List<Materiel> materiels = materielRepository.findAll();
+		for(Materiel m : materiels) {
+			if(m.getId().equals(m.getId())) {
+				materielRepository.save(m);
+			}
+		}
 	}
 	
 	
