@@ -38,9 +38,22 @@ public class PlanningService {
 		return null;
 	}
 	
+	public Planning showByIdWithModules(Integer idPlanning) {
+		Optional<Planning> opt = planningRepo.findByIdWithModules(idPlanning);
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return null;
+	}
+	
 	
 	public List<Planning> showAll(){
 		return planningRepo.findAll();
+	}
+	
+	
+	public List<Planning> showAllWithModules(){
+		return planningRepo.findAllWithModules();
 	}
 	
 	public void updatePlanning(Integer idPlanning) {
