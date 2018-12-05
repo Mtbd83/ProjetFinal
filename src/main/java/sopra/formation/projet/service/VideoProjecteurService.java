@@ -27,8 +27,8 @@ public class VideoProjecteurService {
 		VideoProjecteur vp = new VideoProjecteur();
 		if(opt.isPresent()) {
 			vp = opt.get();
+			materielRepository.save(vp);
 		}
-		materielRepository.save(vp);
 	}
 
 	public void deleteVideoProjecteurById(Integer id) {
