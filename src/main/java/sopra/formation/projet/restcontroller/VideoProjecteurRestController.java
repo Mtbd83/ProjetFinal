@@ -69,8 +69,13 @@ public class VideoProjecteurRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			VideoProjecteur videoProjecteurEnBase = videoProjecteurService.showVideoProjecteurById(videoProjecteur.getId());
+			videoProjecteurEnBase.setCode(videoProjecteur.getCode());
+			videoProjecteurEnBase.setCout(videoProjecteur.getCout());
+			videoProjecteurEnBase.setDisponibilité(videoProjecteur.isDisponibilité());
+			videoProjecteurEnBase.setMaterielPlanning(videoProjecteur.getMaterielPlanning());
+			videoProjecteurEnBase.setPlanning(videoProjecteur.getPlanning());
+			videoProjecteurService.update(videoProjecteurEnBase);
 			response = new ResponseEntity<VideoProjecteur>(videoProjecteurEnBase, HttpStatus.OK);
-
 		}
 		return response;
 	}

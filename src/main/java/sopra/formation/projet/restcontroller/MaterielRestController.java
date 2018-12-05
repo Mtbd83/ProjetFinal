@@ -69,11 +69,12 @@ public class MaterielRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
-			materielEnBase.setCode(materielEnBase.getCode());
-			materielEnBase.setCout(materielEnBase.getCout());
+			materielEnBase.setCode(materiel.getCode());
+			materielEnBase.setCout(materiel.getCout());
+			materielEnBase.setDisponibilité(materiel.isDisponibilité());
 			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
+			
 			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);
-
 		}
 		return response;
 	}

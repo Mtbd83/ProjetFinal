@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sopra.formation.projet.model.VideoProjecteur;
 import sopra.formation.projet.repository.MaterielRepository;
 
+@Service
 public class VideoProjecteurService {
 
 	@Autowired
@@ -18,6 +20,15 @@ public class VideoProjecteurService {
 		if (videoProjecteur != null) {
 			materielRepository.save(videoProjecteur);
 		}
+	}
+	
+	public void update(VideoProjecteur videoProjecteur) {
+		Optional<VideoProjecteur> opt = materielRepository.findVideoProjecteurById(videoProjecteur.getId());
+		VideoProjecteur vp = new VideoProjecteur();
+		if(opt.isPresent()) {
+			vp = opt.get();
+		}
+		materielRepository.save(vp);
 	}
 
 	public void deleteVideoProjecteurById(Integer id) {

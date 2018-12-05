@@ -69,10 +69,15 @@ public class OrdinateurRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Ordinateur ordinateurEnBase = ordinateurService.showOrdinateurById(ordinateur.getId());
-			ordinateurEnBase.setCode(ordinateurEnBase.getDisqueDur());
+			ordinateurEnBase.setCode(ordinateur.getCode());
+			ordinateurEnBase.setCout(ordinateur.getCout());
+			ordinateurEnBase.setDisponibilité(ordinateur.isDisponibilité());
+			ordinateurEnBase.setMaterielPlanning(ordinateur.getMaterielPlanning());
 			ordinateurEnBase.setRam(ordinateurEnBase.getRam());
 			ordinateurEnBase.setProcesseur(ordinateurEnBase.getProcesseur());
 			ordinateurEnBase.setAchatOrdi(ordinateurEnBase.getAchatOrdi());
+			ordinateurEnBase.setDisqueDur(ordinateur.getDisqueDur());
+			ordinateurService.update(ordinateurEnBase);
 			response = new ResponseEntity<Ordinateur>(ordinateurEnBase, HttpStatus.OK);
 
 		}
