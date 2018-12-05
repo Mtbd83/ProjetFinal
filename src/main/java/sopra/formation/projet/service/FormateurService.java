@@ -49,8 +49,8 @@ public class FormateurService {
 		Formateur f = new Formateur();
 		if(opt.isPresent()) {
 			f = opt.get();
+			formateurRepository.save(f);
 		}
-		formateurRepository.save(f);
 	}
 
 	public void deleteFormateurById(Integer id) {
