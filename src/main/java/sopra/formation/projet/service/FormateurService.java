@@ -1,7 +1,5 @@
 package sopra.formation.projet.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -44,6 +42,15 @@ public class FormateurService {
 			formateurRepository.save(formateur);
 		}
 	}
+	
+	public void modifFormateur(Formateur formateur) {
+		List<Formateur> formateurs = formateurRepository.findAll();
+		for(Formateur f : formateurs) {
+			if(formateur.getId().equals(f.getId())) {
+				formateurRepository.save(formateur);
+			}
+		}
+	}
 
 	public void deleteFormateurById(Integer id) {
 		Optional<Formateur> opt = formateurRepository.findWithFormateurMatiere(id);
@@ -51,7 +58,7 @@ public class FormateurService {
 			Formateur formateur = opt.get();
 			Set<FormateurMatiere> fm = formateur.getFormateurmatiere();
 			for (FormateurMatiere formateurMatiere : fm) {
-				Optional<FormateurMatiere> optFM = fmRepository.findByKey(formateurMatiere.getKey());
+				Optional<FormateurMatiere> optFM = fmRepository.findById(formateurMatiere.getKey());
 				if (optFM.isPresent()) {
 					formateurMatiere.setKey(null);
 					fmRepository.save(formateurMatiere);
