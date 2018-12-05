@@ -11,6 +11,7 @@ import sopra.formation.projet.model.Formateur;
 import sopra.formation.projet.model.FormateurMatiere;
 import sopra.formation.projet.model.FormateurMatiereKey;
 import sopra.formation.projet.model.Matiere;
+import sopra.formation.projet.model.Module;
 import sopra.formation.projet.repository.FormateurMatiereRepository;
 import sopra.formation.projet.repository.FormateurRepository;
 import sopra.formation.projet.repository.MatiereRepository;
@@ -118,6 +119,15 @@ public class FormateurService {
 			formateur = opt.get();
 		}
 		return formateur;
+	}
+	
+	public List<Module> showModuleById(Integer id){
+		Optional<Formateur> opt = formateurRepository.findByModuleById(id);
+		if(opt.isPresent()) {
+			return (List<Module>) opt.get().getModules();
+		}else {
+			return null;
+		}
 	}
 
 }

@@ -105,6 +105,14 @@ public class ModuleService {
 		}
 	}
 	
+	public Formateur showFormateurByModuleId(Integer idModule) {
+		Optional<Module> module = moduleRepo.findById(idModule);
+		if (module.isPresent()) {
+			return module.get().getFormateur();
+		} else {
+			return null;
+		}
+	}
 
 
 }

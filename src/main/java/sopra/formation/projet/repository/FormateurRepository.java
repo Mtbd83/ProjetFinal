@@ -24,4 +24,5 @@ public interface FormateurRepository extends JpaRepository<Formateur,Integer> {
 	
 	@Query("select distinct f from Formateur f left join fetch f.formateurmatiere where f.id=:id")
 	Optional<Formateur> findWithFormateurMatiere(@Param("id") Integer id);
+	
 }
