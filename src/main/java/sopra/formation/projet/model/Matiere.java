@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
-import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 @SequenceGenerator(name = "seqMatiere", sequenceName = "seq_matiere", initialValue = 1, allocationSize = 1)
@@ -21,19 +21,14 @@ public class Matiere {
 	@GeneratedValue(generator = "seqMatiere", strategy = GenerationType.SEQUENCE)
 	private Integer idMatiere;
 	
-	@NotEmpty
 	private String titre;
 	
-	@NotEmpty
 	private Integer duree;
 	
-	@NotEmpty
 	private String objectif;
 	
-	@NotEmpty
 	private String prerequis;
 	
-	@NotEmpty
 	private String contenu;
 	
 	@ManyToOne

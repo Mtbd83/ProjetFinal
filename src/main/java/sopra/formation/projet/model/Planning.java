@@ -54,6 +54,10 @@ public class Planning {
 	@Version
 	private int version;
 	
+
+	@OneToMany(mappedBy = "key.planning")
+	private Set<MaterielPlanning> materielPlanning;
+	
 	
 	
 	public Salle getSalle() {
@@ -122,6 +126,16 @@ public class Planning {
 
 	public void setModules(Set<Module> modules) {
 		this.modules = modules;
+	}
+	
+	
+
+	public Set<MaterielPlanning> getMaterielPlanning() {
+		return materielPlanning;
+	}
+
+	public void setMaterielPlanning(Set<MaterielPlanning> materielPlanning) {
+		this.materielPlanning = materielPlanning;
 	}
 
 	@Override

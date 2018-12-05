@@ -1,5 +1,7 @@
 package sopra.formation.projet.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,6 +31,9 @@ public abstract class Materiel {
 	private boolean disponibilite;
 	@Version
 	private int version;
+	
+	@OneToMany(mappedBy = "key.materiel")
+	private Set<MaterielPlanning> materielPlanning;
 	
 	public Materiel() {
 		
@@ -70,6 +76,24 @@ public abstract class Materiel {
 
 	public void setDisponibilité(boolean disponibilité) {
 		this.disponibilite = disponibilité;
+	}
+	
+	
+
+	public boolean isDisponibilite() {
+		return disponibilite;
+	}
+
+	public void setDisponibilite(boolean disponibilite) {
+		this.disponibilite = disponibilite;
+	}
+
+	public Set<MaterielPlanning> getMaterielPlanning() {
+		return materielPlanning;
+	}
+
+	public void setMaterielPlanning(Set<MaterielPlanning> materielPlanning) {
+		this.materielPlanning = materielPlanning;
 	}
 
 	@Override
