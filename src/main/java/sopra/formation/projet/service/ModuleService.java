@@ -47,12 +47,7 @@ public class ModuleService {
 		}
 	}
 	
-//	public void updateModule(Integer idModule) {
-//		Optional<Module> opt = moduleRepo.findById(idModule);
-//		if(opt.isPresent()) {
-//			moduleRepo.save(opt.get());
-//		}
-//	}
+
 	
 	public void updateModule(Module module) {
 	Optional<Module> opt = moduleRepo.findById(module.getIdModule());
