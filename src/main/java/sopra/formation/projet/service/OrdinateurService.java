@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sopra.formation.projet.model.Ordinateur;
 import sopra.formation.projet.repository.MaterielRepository;
 
+@Service
 public class OrdinateurService {
 
 	@Autowired
@@ -18,6 +20,15 @@ public class OrdinateurService {
 		if (ordinateur != null) {
 			materielRepository.save(ordinateur);
 		}
+	}
+	
+	public void update(Ordinateur ordinateur) {
+		Optional<Ordinateur> opt = materielRepository.findOrdinateurById(ordinateur.getId());
+		Ordinateur o = new Ordinateur();
+		if(opt.isPresent()) {
+			o = opt.get();
+		}
+		materielRepository.save(o);
 	}
 
 	public void deleteOrdinateurById(Integer id) {

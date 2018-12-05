@@ -45,12 +45,12 @@ public class FormateurService {
 	}
 	
 	public void modifFormateur(Formateur formateur) {
-		List<Formateur> formateurs = formateurRepository.findAll();
-		for(Formateur f : formateurs) {
-			if(formateur.getId().equals(f.getId())) {
-				formateurRepository.save(formateur);
-			}
+		Optional<Formateur> opt = formateurRepository.findById(formateur.getId());
+		Formateur f = new Formateur();
+		if(opt.isPresent()) {
+			f = opt.get();
 		}
+		formateurRepository.save(f);
 	}
 
 	public void deleteFormateurById(Integer id) {

@@ -69,13 +69,13 @@ public class FormateurRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Formateur formateurEnBase = formateurService.showFormateurById(formateur.getId());
-			formateurEnBase.setNom(formateurEnBase.getNom());
-			formateurEnBase.setPrenom(formateurEnBase.getPrenom());
-			formateurEnBase.setTelephone(formateurEnBase.getTelephone());
-			formateurEnBase.setMail(formateurEnBase.getMail());
-			formateurEnBase.setAdresse(formateurEnBase.getAdresse());
-			formateurEnBase.setModules(formateurEnBase.getModules());
-			formateurEnBase.setFormateurmatiere(formateurEnBase.getFormateurmatiere());
+			formateurEnBase.setNom(formateur.getNom());
+			formateurEnBase.setPrenom(formateur.getPrenom());
+			formateurEnBase.setTelephone(formateur.getTelephone());
+			formateurEnBase.setMail(formateur.getMail());
+			formateurEnBase.setAdresse(formateur.getAdresse());
+			formateurEnBase.setModules(formateur.getModules());
+			formateurEnBase.setFormateurmatiere(formateur.getFormateurmatiere());
 			formateurService.modifFormateur(formateurEnBase);
 			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
 		}
