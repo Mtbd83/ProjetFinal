@@ -69,7 +69,13 @@ public class SalleRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Salle salleEnBase = salleService.showSalleById(salle.getId());
-			salleEnBase.setCode(salleEnBase.getCapacite());
+			salleEnBase.setCode(salle.getCapacite());
+			salleEnBase.setCout(salle.getCout());
+			salleEnBase.setCapacite(salle.getCapacite());
+			salleEnBase.setDisponibilité(salle.isDisponibilité());
+			salleEnBase.setMaterielPlanning(salle.getMaterielPlanning());
+			salleEnBase.setPlanning(salle.getPlanning());
+			salleService.update(salleEnBase);
 			response = new ResponseEntity<Salle>(salleEnBase, HttpStatus.OK);
 
 		}
