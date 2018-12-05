@@ -61,8 +61,7 @@ public class FormateurService {
 			for (FormateurMatiere formateurMatiere : fm) {
 				Optional<FormateurMatiere> optFM = fmRepository.findById(formateurMatiere.getKey());
 				if (optFM.isPresent()) {
-					formateurMatiere.setKey(null);
-					fmRepository.save(formateurMatiere);
+					fmRepository.delete(formateurMatiere);
 				}
 			}
 		}
