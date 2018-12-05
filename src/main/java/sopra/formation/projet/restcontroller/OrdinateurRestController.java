@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import sopra.formation.projet.model.Materiel;
-import sopra.formation.projet.service.MaterielService;
+import sopra.formation.projet.model.Ordinateur;
+import sopra.formation.projet.service.OrdinateurService;
 
 @RestController
-@RequestMapping("/rest/materiel")
+@RequestMapping("/rest/materiel/ordinateur")
 @CrossOrigin(origins = {"*"})
-public class MaterielRestController {
+public class OrdinateurRestController {
 
 	@Autowired
-	private MaterielService materielService;
+	private OrdinateurService ordinateurService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Materiel>> findAll(){
-		return new ResponseEntity<>(materielService.showAll(), HttpStatus.OK);
+	public ResponseEntity<List<Ordinateur>> findAllOrdinateur(){
+		return new ResponseEntity<>(ordinateurService.showAllOrdinateur(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createMateriel(@Valid @RequestBody Materiel materiel, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createOrdinateur(@Valid @RequestBody Ordinateur ordinateur, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			materielService.createMateriel(materiel);
+			ordinateurService.createOrdinateur(ordinateur);
 			HttpHeaders header = new HttpHeaders();
-			header.setLocation(uCB.path("/rest/materiel/{id}").buildAndExpand(materiel.getId()).toUri());
+			header.setLocation(uCB.path("/rest/materiel/ordinateur/{id}").buildAndExpand(ordinateur.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
 		}
 		return response;
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Materiel> findById(@PathVariable(name="id") Integer id) {
-		Materiel materiel = materielService.showMaterielById(id);
-		ResponseEntity<Materiel> response = null;
-		if(materiel != null) {
-			response = new ResponseEntity<Materiel>(materiel, HttpStatus.OK);
+	public ResponseEntity<Ordinateur> findById(@PathVariable(name="id") Integer id) {
+		Ordinateur ordinateur = ordinateurService.showOrdinateurById(id);
+		ResponseEntity<Ordinateur> response = null;
+		if(ordinateur != null) {
+			response = new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -63,16 +63,17 @@ public class MaterielRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	public ResponseEntity<Materiel> update(@Valid @RequestBody Materiel materiel, BindingResult result){
-		ResponseEntity<Materiel> response = null;
-		if(result.hasErrors() || materiel.getId() == null) {
+	public ResponseEntity<Ordinateur> update(@Valid @RequestBody Ordinateur ordinateur, BindingResult result){
+		ResponseEntity<Ordinateur> response = null;
+		if(result.hasErrors() || ordinateur.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
-			materielEnBase.setCode(materielEnBase.getCode());
-			materielEnBase.setCout(materielEnBase.getCout());
-			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
-			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);
+			Ordinateur ordinateurEnBase = ordinateurService.showOrdinateurById(ordinateur.getId());
+			ordinateurEnBase.setCode(ordinateurEnBase.getDisqueDur());
+			ordinateurEnBase.setRam(ordinateurEnBase.getRam());
+			ordinateurEnBase.setProcesseur(ordinateurEnBase.getProcesseur());
+			ordinateurEnBase.setAchatOrdi(ordinateurEnBase.getAchatOrdi());
+			response = new ResponseEntity<Ordinateur>(ordinateurEnBase, HttpStatus.OK);
 
 		}
 		return response;
@@ -80,10 +81,10 @@ public class MaterielRestController {
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Materiel materiel = materielService.showMaterielById(id);
+		Ordinateur ordinateur = ordinateurService.showOrdinateurById(id);
 		ResponseEntity<Void> response = null;
-		if(materiel != null) {
-			materielService.deleteMateriel(materiel);
+		if(ordinateur != null) {
+			ordinateurService.deleteOrdinateur(ordinateur);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
