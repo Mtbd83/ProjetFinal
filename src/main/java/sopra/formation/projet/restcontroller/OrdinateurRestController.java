@@ -71,7 +71,7 @@ public class OrdinateurRestController {
 			Ordinateur ordinateurEnBase = ordinateurService.showOrdinateurById(ordinateur.getId());
 			ordinateurEnBase.setCode(ordinateur.getCode());
 			ordinateurEnBase.setCout(ordinateur.getCout());
-			ordinateurEnBase.setDisponibilité(ordinateur.isDisponibilité());
+			ordinateurEnBase.setDisponibilite(ordinateur.isDisponibilite());
 			ordinateurEnBase.setMaterielPlanning(ordinateur.getMaterielPlanning());
 			ordinateurEnBase.setRam(ordinateur.getRam());
 			ordinateurEnBase.setProcesseur(ordinateur.getProcesseur());
