@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import sopra.formation.projet.model.Formateur;
+import sopra.formation.projet.model.JsonViews;
 import sopra.formation.projet.service.FormateurService;
 
 @RestController
@@ -32,11 +35,18 @@ public class FormateurRestController {
 	private FormateurService formateurService;
 	
 	@GetMapping(path= { "" , "/" })
+	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
 	public ResponseEntity<List<Formateur>> findAll(){
-		return new ResponseEntity<>(formateurService.listeFormateurs(), HttpStatus.OK);
+		return new ResponseEntity<>(formateurService.listeFormateurAvecFormateurMatiere(), HttpStatus.OK);
+	}
+	
+	@GetMapping(path= { "/matiere/{id}" })
+	public ResponseEntity<Formateur> findWithMatiere(@PathVariable(name="id") Integer id){
+		return new ResponseEntity<Formateur>(formateurService.formateurAvecMatiere(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> createFormateur(@Valid @RequestBody Formateur formateur, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
@@ -51,6 +61,7 @@ public class FormateurRestController {
 	}
 	
 	@GetMapping(value="/{id}")
+	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
 	public ResponseEntity<Formateur> findById(@PathVariable(name="id") Integer id) {
 		Formateur formateur = formateurService.showFormateurById(id);
 		ResponseEntity<Formateur> response = null;
@@ -63,6 +74,7 @@ public class FormateurRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Formateur> update(@Valid @RequestBody Formateur formateur, BindingResult result){
 		ResponseEntity<Formateur> response = null;
 		if(result.hasErrors() || formateur.getId() == null) {
@@ -74,8 +86,6 @@ public class FormateurRestController {
 			formateurEnBase.setTelephone(formateur.getTelephone());
 			formateurEnBase.setMail(formateur.getMail());
 			formateurEnBase.setAdresse(formateur.getAdresse());
-			formateurEnBase.setModules(formateur.getModules());
-			formateurEnBase.setFormateurmatiere(formateur.getFormateurmatiere());
 			formateurService.modifFormateur(formateurEnBase);
 			response = new ResponseEntity<Formateur>(formateurEnBase, HttpStatus.OK);
 		}
