@@ -79,12 +79,13 @@ public class ModuleRestController {
 			response=new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		}else {
 			Module moduleEnBase = moduleService.showById(module.getIdModule());
-			moduleEnBase.setDateDebut(moduleEnBase.getDateDebut());
-			moduleEnBase.setDateFin(moduleEnBase.getDateFin());
-			moduleEnBase.setFormateur(moduleEnBase.getFormateur());
-			moduleEnBase.setMatiere(moduleEnBase.getMatiere());
-			moduleEnBase.setModulesStagiaires(moduleEnBase.getModulesStagiaires());
-			moduleEnBase.setPlanning(moduleEnBase.getPlanning());
+			moduleEnBase.setDateDebut(module.getDateDebut());
+			moduleEnBase.setDateFin(module.getDateFin());
+			moduleEnBase.setFormateur(module.getFormateur());
+			moduleEnBase.setMatiere(module.getMatiere());
+			moduleEnBase.setModulesStagiaires(module.getModulesStagiaires());
+			moduleEnBase.setPlanning(module.getPlanning());
+			moduleService.updateModule(moduleEnBase);
 			response=new ResponseEntity<Module>(moduleEnBase,HttpStatus.OK);
 		}
 		return response;
