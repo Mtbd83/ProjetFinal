@@ -71,7 +71,7 @@ public class VideoProjecteurRestController {
 			VideoProjecteur videoProjecteurEnBase = videoProjecteurService.showVideoProjecteurById(videoProjecteur.getId());
 			videoProjecteurEnBase.setCode(videoProjecteur.getCode());
 			videoProjecteurEnBase.setCout(videoProjecteur.getCout());
-			videoProjecteurEnBase.setDisponibilité(videoProjecteur.isDisponibilité());
+			videoProjecteurEnBase.setDisponibilite(videoProjecteur.isDisponibilite());
 			videoProjecteurEnBase.setMaterielPlanning(videoProjecteur.getMaterielPlanning());
 			videoProjecteurEnBase.setPlanning(videoProjecteur.getPlanning());
 			videoProjecteurService.update(videoProjecteurEnBase);
