@@ -1,6 +1,7 @@
 package sopra.formation.projet.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,15 @@ public class FormateurMatiereService {
 
 	public List<FormateurMatiere> findAllFormateurMatiere() {
 		return formateurMatiereRepository.findAll();
+	}
+	
+	public FormateurMatiere findOne(FormateurMatiereKey key) {
+		Optional<FormateurMatiere> opt = formateurMatiereRepository.findById(key);
+		FormateurMatiere fm = new FormateurMatiere();
+		if(opt.isPresent()) {
+			fm = opt.get();
+		}
+		return fm;
 	}
 	
 }
