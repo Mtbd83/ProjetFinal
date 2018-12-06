@@ -6,16 +6,20 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @SuppressWarnings("serial")
 @Embeddable
 public class FormateurMatiereKey implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "idFormateur")
+	@JsonView(JsonViews.FormateurAvecModules.class)
 	private Formateur formateur;
 	
 	@ManyToOne
 	@JoinColumn(name = "idMatiere")
+	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
 	private Matiere matiere;
 
 	public FormateurMatiereKey() {
