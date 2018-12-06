@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 @SequenceGenerator(name = "seqMatiere", sequenceName = "seq_matiere", initialValue = 1, allocationSize = 1)
@@ -31,10 +33,12 @@ public class Matiere {
 	
 	private String contenu;
 	
+	@JsonView(JsonViews.Common.class)
 	@ManyToOne
 	@JoinColumn(name="idModule")
 	private Module module;
 	
+	@JsonView(JsonViews.Common.class)
 	@OneToMany(mappedBy = "key.matiere")
 	private Set<FormateurMatiere> formateursMatieres;
 	
