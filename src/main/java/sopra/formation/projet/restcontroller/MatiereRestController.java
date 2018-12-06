@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.projet.model.JsonViews;
 import sopra.formation.projet.model.Matiere;
 import sopra.formation.projet.service.MatiereService;
 
@@ -34,11 +37,13 @@ public class MatiereRestController {
 	private MatiereService matiereService;
 
 	@GetMapping(path = { "", "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Matiere>> findAll() {
 		return new ResponseEntity<>(matiereService.findAll(), HttpStatus.OK);
 	}
 
 	@PostMapping(path = { "", "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> createMatiere(@Valid @RequestBody Matiere matiere, BindingResult br,
 			UriComponentsBuilder uCB) {
 		ResponseEntity<Void> response = null;
@@ -53,8 +58,9 @@ public class MatiereRestController {
 		return response;
 	}
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Matiere> findById(@PathVariable(name = "id") Integer idMatiere) {
+	@GetMapping(value = "/{idMatiere}")
+	@JsonView(JsonViews.Common.class)
+	public ResponseEntity<Matiere> findById(@PathVariable(name = "idMatiere") Integer idMatiere) {
 		Matiere opt = matiereService.findMatiere(idMatiere);
 		ResponseEntity<Matiere> response = null;
 		if (opt!=null) {
@@ -65,8 +71,9 @@ public class MatiereRestController {
 		return response;
 	}
 	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable(name = "id") Integer idMatiere) {
+	@DeleteMapping(value = "/{idMatiere}")
+	@JsonView(JsonViews.Common.class)
+	public ResponseEntity<Void> delete(@PathVariable(name = "idMatiere") Integer idMatiere) {
 		Matiere opt = matiereService.findMatiere(idMatiere);
 		ResponseEntity<Void> response = null;
 		if(opt!=null) {
@@ -79,6 +86,7 @@ public class MatiereRestController {
 	}
 	
 	@PutMapping(path = { "", "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Matiere> update(@Valid @RequestBody Matiere matiere, BindingResult br) {
 		ResponseEntity<Matiere> response = null;
 		if (br.hasErrors() || matiere.getIdMatiere() == null) {
