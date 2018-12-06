@@ -56,8 +56,8 @@ public class PlanningService {
 		return planningRepo.findAllWithModules();
 	}
 	
-	public void updatePlanning(Integer idPlanning) {
-		Optional<Planning> opt = planningRepo.findById(idPlanning);
+	public void updatePlanning(Planning planning) {
+		Optional<Planning> opt = planningRepo.findById(planning.getIdPlanning());
 		if (opt.isPresent()) {
 			planningRepo.save(opt.get());
 		}
