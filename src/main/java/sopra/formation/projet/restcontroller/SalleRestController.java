@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.projet.model.JsonViews;
 import sopra.formation.projet.model.Salle;
 import sopra.formation.projet.service.SalleService;
 
@@ -32,11 +35,13 @@ public class SalleRestController {
 	private SalleService salleService;
 	
 	@GetMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Salle>> findAllSalle(){
 		return new ResponseEntity<>(salleService.showAllSalle(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> createSalle(@Valid @RequestBody Salle salle, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
@@ -51,6 +56,7 @@ public class SalleRestController {
 	}
 	
 	@GetMapping(value="/{id}")
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Salle> findById(@PathVariable(name="id") Integer id) {
 		Salle salle = salleService.showSalleById(id);
 		ResponseEntity<Salle> response = null;
@@ -63,6 +69,7 @@ public class SalleRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Salle> update(@Valid @RequestBody Salle salle, BindingResult result){
 		ResponseEntity<Salle> response = null;
 		if(result.hasErrors() || salle.getId() == null) {
