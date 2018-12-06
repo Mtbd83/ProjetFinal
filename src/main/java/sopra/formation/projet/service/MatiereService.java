@@ -44,6 +44,13 @@ public class MatiereService {
 		List<Matiere> matieres = matiereRepository.findAll();
 		return matieres;
 	}
+	
+	public List<Matiere> findAllWithModule() {
+		List<Matiere> matieres = matiereRepository.findMatiereWithModule();
+		return matieres;
+	}
+	
+	
 
 	public Matiere findMatiere(Integer idMatiere) {
 		Optional<Matiere> opt = matiereRepository.findById(idMatiere);
@@ -53,5 +60,15 @@ public class MatiereService {
 		}
 		return matiere;
 	}
+	
+	public Matiere findMatiereWithModule(Integer idMatiere) {
+		Optional<Matiere> opt = matiereRepository.findMatiereWithModuleById(idMatiere);
+		Matiere matiere = new Matiere();
+		if (opt.isPresent()) {
+			matiere = opt.get();
+		}
+		return matiere;
+	}
+	
 
 }

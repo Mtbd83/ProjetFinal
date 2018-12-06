@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import sopra.formation.projet.model.FormateurMatiere;
 import sopra.formation.projet.model.Matiere;
@@ -25,5 +27,12 @@ public interface MatiereRepository extends JpaRepository<Matiere,Integer>{
 	List<Matiere> findByModule(Module module);
 	
 	Set<FormateurMatiere> findByFormateursMatieres(FormateurMatiere formateursMatieres);
+	
+	@Query("select distinct m from Matiere m left join fetch m.module")
+	List<Matiere> findMatiereWithModule();
+	
+	
+	@Query("select distinct m from Matiere m left join fetch m.module where m.idMatiere=:id")
+	Optional<Matiere> findMatiereWithModuleById(@Param("id")Integer id);
 
 }
