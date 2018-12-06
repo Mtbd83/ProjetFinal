@@ -49,7 +49,7 @@ public class ModuleRestController {
 		if(br.hasErrors()) {
 			response=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}else {
-			moduleService.createModule(module);;
+			moduleService.createModule(module);
 			HttpHeaders header = new HttpHeaders();
 			header.setLocation(uCB.path("/rest/Module/{idModule}").buildAndExpand(module.getIdModule()).toUri());
 			response=new ResponseEntity<>(header,HttpStatus.CREATED);
