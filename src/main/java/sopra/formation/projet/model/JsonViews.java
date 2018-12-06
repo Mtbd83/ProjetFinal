@@ -14,6 +14,10 @@ public class JsonViews {
 		
 	}
 	
+	public static class MatiereAvecModule extends Common{
+		
+	}
+	
 	public static class MaterielAvecMaterielPlanning extends Common{
 		
 	}

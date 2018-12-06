@@ -7,10 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Entity
@@ -19,22 +20,25 @@ public class Matiere {
 
 	@Id
 	@GeneratedValue(generator = "seqMatiere", strategy = GenerationType.SEQUENCE)
+	@JsonView(JsonViews.Common.class)
 	private Integer idMatiere;
 	
+	@JsonView(JsonViews.Common.class)
 	private String titre;
-	
+	@JsonView(JsonViews.Common.class)
 	private Integer duree;
-	
+	@JsonView(JsonViews.Common.class)
 	private String objectif;
-	
+	@JsonView(JsonViews.Common.class)
 	private String prerequis;
-	
+	@JsonView(JsonViews.Common.class)
 	private String contenu;
 	
-	@ManyToOne
-	@JoinColumn(name="idModule")
-	private Module module;
+	@JsonView(JsonViews.Common.class)
+	@OneToMany(mappedBy="matiere")
+	private Set<Module> module;
 	
+	@JsonView(JsonViews.MatiereAvecModule.class)
 	@OneToMany(mappedBy = "key.matiere")
 	private Set<FormateurMatiere> formateursMatieres;
 	
@@ -92,11 +96,13 @@ public class Matiere {
 		this.contenu = contenu;
 	}
 
-	public Module getModule() {
+
+
+	public Set<Module> getModule() {
 		return module;
 	}
 
-	public void setModule(Module module) {
+	public void setModule(Set<Module> module) {
 		this.module = module;
 	}
 
