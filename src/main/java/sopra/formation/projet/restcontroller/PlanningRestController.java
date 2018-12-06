@@ -85,13 +85,14 @@ public class PlanningRestController {
 			response=new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		}else {
 			Planning planningEnBase = planningService.showById(planning.getIdPlanning());
-			planningEnBase.setDateDebut(planningEnBase.getDateDebut());
-			planningEnBase.setDateFin(planningEnBase.getDateFin());
-			planningEnBase.setGestionnaire(planningEnBase.getGestionnaire());
-			planningEnBase.setMaterielPlanning(planningEnBase.getMaterielPlanning());
-			planningEnBase.setModules(planningEnBase.getModules());
-			planningEnBase.setSalle(planningEnBase.getSalle());
-			planningEnBase.setVideoProj(planningEnBase.getVideoProj());
+			planningEnBase.setDateDebut(planning.getDateDebut());
+			planningEnBase.setDateFin(planning.getDateFin());
+			planningEnBase.setGestionnaire(planning.getGestionnaire());
+			planningEnBase.setMaterielPlanning(planning.getMaterielPlanning());
+			planningEnBase.setModules(planning.getModules());
+			planningEnBase.setSalle(planning.getSalle());
+			planningEnBase.setVideoProj(planning.getVideoProj());
+			planningService.updatePlanning(planningEnBase);
 			response=new ResponseEntity<Planning>(planningEnBase,HttpStatus.OK);
 		}
 		return response;
