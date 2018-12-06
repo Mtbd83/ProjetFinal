@@ -34,7 +34,7 @@ public class Ordinateur extends Materiel {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonView(JsonViews.Common.class)
-	private Date achatOrdi;
+	private Date dateAchat;
 
 	
 	
@@ -43,12 +43,12 @@ public class Ordinateur extends Materiel {
 	}
 
 
-	public Ordinateur(String processeur, Integer ram, Integer disqueDur, Date achatOrdi) {
+	public Ordinateur(String processeur, Integer ram, Integer disqueDur, Date dateAchat) {
 		super();
 		this.processeur = processeur;
 		this.ram = ram;
 		this.disqueDur = disqueDur;
-		this.achatOrdi = achatOrdi;
+		this.dateAchat = dateAchat;
 	}
 
 
@@ -84,12 +84,12 @@ public class Ordinateur extends Materiel {
 
 
 	public Date getAchatOrdi() {
-		return achatOrdi;
+		return dateAchat;
 	}
 
 
-	public void setAchatOrdi(Date achatOrdi) {
-		this.achatOrdi = achatOrdi;
+	public void setAchatOrdi(Date dateAchat) {
+		this.dateAchat = dateAchat;
 	}
 	
 	
