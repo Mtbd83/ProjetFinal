@@ -38,23 +38,42 @@ public class FormateurService {
 		return formateurs;
 	}
 
+	public List<Formateur> listeFormateurAvecMatiere() {
+		List<Formateur> formateurs = formateurRepository.findAllWithMatiere();
+		return formateurs;
+	}
+	
+	public List<Formateur> listeFormateurAvecFormateurMatiere() {
+		List<Formateur> formateurs = formateurRepository.findWithFormateurMatiere();
+		return formateurs;
+	}
+
+	public Formateur formateurAvecMatiere(Integer id) {
+		Optional<Formateur> opt = formateurRepository.findByIdWithMatiere(id);
+		Formateur f = new Formateur();
+		if (opt.isPresent()) {
+			f = opt.get();
+		}
+		return f;
+	}
+
 	public void creerFormateur(Formateur formateur) {
 		if (formateur != null) {
 			formateurRepository.save(formateur);
 		}
 	}
-	
+
 	public void modifFormateur(Formateur formateur) {
 		Optional<Formateur> opt = formateurRepository.findById(formateur.getId());
 		Formateur f = new Formateur();
-		if(opt.isPresent()) {
+		if (opt.isPresent()) {
 			f = opt.get();
 			formateurRepository.save(f);
 		}
 	}
 
 	public void deleteFormateurById(Integer id) {
-		Optional<Formateur> opt = formateurRepository.findWithFormateurMatiere(id);
+		Optional<Formateur> opt = formateurRepository.findByIdWithFormateurMatiere(id);
 		if (opt.isPresent()) {
 			Formateur formateur = opt.get();
 			Set<FormateurMatiere> fm = formateur.getFormateurmatiere();
@@ -119,12 +138,13 @@ public class FormateurService {
 		}
 		return formateur;
 	}
-	
-	public List<Module> showModuleById(Integer id){
+
+	@SuppressWarnings("unchecked")
+	public List<Module> showModuleById(Integer id) {
 		Optional<Formateur> opt = formateurRepository.findByModuleById(id);
-		if(opt.isPresent()) {
+		if (opt.isPresent()) {
 			return (List<Module>) opt.get().getModules();
-		}else {
+		} else {
 			return null;
 		}
 	}

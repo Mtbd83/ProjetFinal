@@ -16,6 +16,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING, length=10)
@@ -23,22 +26,28 @@ import javax.validation.constraints.NotEmpty;
 public abstract class Personne {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqPersonne")
+	@JsonView(JsonViews.Common.class)
 	private Integer id;
 	@Column(name="last_name",length=200,nullable = false)
 	@NotEmpty
+	@JsonView(JsonViews.Common.class)
 	private String nom;
 	@Column(name="first_name",length=150,nullable=false)
 	@NotEmpty
+	@JsonView(JsonViews.Common.class)
 	private String prenom;
 	@Embedded
 	@AttributeOverrides({@AttributeOverride(name= "numero", column = @Column(name = "number_person")), 
 		@AttributeOverride (name= "rue", column = @Column(name = "street_person",length=100)),
 		@AttributeOverride(name= "codePostal", column = @Column(name = "zip_code_person",length=20)),
 		@AttributeOverride(name= "ville", column = @Column(name = "city_person", length =100)) })
+	@JsonView(JsonViews.Common.class)
 	private Adresse adresse;
 	@Column(name="mail")
+	@JsonView(JsonViews.Common.class)
 	private String mail;
 	@Column(name="number_phone", length=10)
+	@JsonView(JsonViews.Common.class)
 	private Integer telephone;
 	@Version
 	private int version;
