@@ -77,12 +77,12 @@ public abstract class Materiel {
 		this.cout = cout;
 	}
 
-	public boolean isDisponibilité() {
+	public boolean isDisponibilite() {
 		return disponibilite;
 	}
 
-	public void setDisponibilité(boolean disponibilité) {
-		this.disponibilite = disponibilité;
+	public void setDisponibilite(boolean disponibilite) {
+		this.disponibilite = disponibilite;
 	}
 
 	public Set<MaterielPlanning> getMaterielPlanning() {
