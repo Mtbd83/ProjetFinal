@@ -14,5 +14,9 @@ public class JsonViews {
 		
 	}
 	
+	public static class MatiereAvecModule extends Common{
+		
+	}
+	
 
 }

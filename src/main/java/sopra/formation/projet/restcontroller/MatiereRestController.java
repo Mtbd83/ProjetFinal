@@ -39,7 +39,13 @@ public class MatiereRestController {
 	@GetMapping(path = { "", "/" })
 	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Matiere>> findAll() {
-		return new ResponseEntity<>(matiereService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = { "/module/{idMatiere}" })
+	@JsonView(JsonViews.Common.class)
+	public ResponseEntity<Matiere> findMatiereWithModule(Integer idMatiere) {
+		return new ResponseEntity<>(matiereService.findMatiereWithModule(idMatiere), HttpStatus.OK);
 	}
 
 	@PostMapping(path = { "", "/" })
