@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.projet.model.JsonViews;
 import sopra.formation.projet.model.Ordinateur;
 import sopra.formation.projet.service.OrdinateurService;
 
@@ -32,6 +35,7 @@ public class OrdinateurRestController {
 	private OrdinateurService ordinateurService;
 	
 	@GetMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Ordinateur>> findAllOrdinateur(){
 		return new ResponseEntity<>(ordinateurService.showAllOrdinateur(), HttpStatus.OK);
 	}
