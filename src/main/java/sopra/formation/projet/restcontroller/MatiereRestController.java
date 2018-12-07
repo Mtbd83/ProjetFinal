@@ -42,9 +42,15 @@ public class MatiereRestController {
 		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
 	}
 	
-	@GetMapping(path = { "/module/{idMatiere}" })
-	@JsonView(JsonViews.Common.class)
-	public ResponseEntity<Matiere> findMatiereWithModule(Integer idMatiere) {
+	@GetMapping(path = {"/module" })
+	@JsonView(JsonViews.MatiereAvecModule.class)
+	public ResponseEntity<List<Matiere>> findAllMatiereWithModule() {
+		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = {"/module/{idMatiere}"})
+	//@JsonView(JsonViews.MatiereAvecModule.class)
+	public ResponseEntity<Matiere> findMatiereWithModule(@PathVariable(name="idMatiere") Integer idMatiere) {
 		return new ResponseEntity<>(matiereService.findMatiereWithModule(idMatiere), HttpStatus.OK);
 	}
 
@@ -92,7 +98,7 @@ public class MatiereRestController {
 	}
 	
 	@PutMapping(path = { "", "/" })
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.MatiereAvecModule.class)
 	public ResponseEntity<Matiere> update(@Valid @RequestBody Matiere matiere, BindingResult br) {
 		ResponseEntity<Matiere> response = null;
 		if (br.hasErrors() || matiere.getIdMatiere() == null) {

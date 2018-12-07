@@ -14,9 +14,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class FormateurMatiere {
 
 	@EmbeddedId
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
 	private FormateurMatiereKey key;
 	
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
 	private String expertise;
 
 	public FormateurMatiere() {

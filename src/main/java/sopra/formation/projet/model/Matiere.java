@@ -34,11 +34,11 @@ public class Matiere {
 	@JsonView(JsonViews.Common.class)
 	private String contenu;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.MatiereAvecModule.class)
 	@OneToMany(mappedBy="matiere")
 	private Set<Module> module;
 	
-	@JsonView(JsonViews.MatiereAvecModule.class)
+	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
 	@OneToMany(mappedBy = "key.matiere")
 	private Set<FormateurMatiere> formateursMatieres;
 	
