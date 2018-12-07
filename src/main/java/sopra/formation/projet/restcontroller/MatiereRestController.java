@@ -49,7 +49,7 @@ public class MatiereRestController {
 	}
 	
 	@GetMapping(path = {"/module/{idMatiere}"})
-	//@JsonView(JsonViews.MatiereAvecModule.class)
+	@JsonView(JsonViews.MatiereAvecModule.class)
 	public ResponseEntity<Matiere> findMatiereWithModule(@PathVariable(name="idMatiere") Integer idMatiere) {
 		return new ResponseEntity<>(matiereService.findMatiereWithModule(idMatiere), HttpStatus.OK);
 	}
@@ -84,7 +84,6 @@ public class MatiereRestController {
 	}
 	
 	@DeleteMapping(value = "/{idMatiere}")
-	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> delete(@PathVariable(name = "idMatiere") Integer idMatiere) {
 		Matiere opt = matiereService.findMatiere(idMatiere);
 		ResponseEntity<Void> response = null;
@@ -98,7 +97,7 @@ public class MatiereRestController {
 	}
 	
 	@PutMapping(path = { "", "/" })
-	@JsonView(JsonViews.MatiereAvecModule.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Matiere> update(@Valid @RequestBody Matiere matiere, BindingResult br) {
 		ResponseEntity<Matiere> response = null;
 		if (br.hasErrors() || matiere.getIdMatiere() == null) {

@@ -53,7 +53,7 @@ public class Planning {
 	private VideoProjecteur videoProj;
 	
 	@OneToMany(mappedBy="planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecModule.class)
 	private Set<Module> modules;
 	
 	
@@ -67,7 +67,7 @@ public class Planning {
 	
 
 	@OneToMany(mappedBy = "key.planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecMaterielPlanning.class)
 	private Set<MaterielPlanning> materielPlanning;
 	
 	

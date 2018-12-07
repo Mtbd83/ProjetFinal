@@ -13,7 +13,7 @@ public class VideoProjecteur extends Materiel {
 	
 	@OneToOne
 	@JoinColumn(name = "planning_id")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.VideoprojAvecPlanning.class)
 	private Planning planning;
 	
 	public VideoProjecteur() {

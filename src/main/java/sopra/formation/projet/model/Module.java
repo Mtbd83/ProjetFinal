@@ -32,19 +32,19 @@ public class Module {
 	
 	@ManyToOne
 	@JoinColumn(name="matiere_id")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecMatiereFormateur.class)
 	private Matiere matiere;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecMatiereFormateur.class)
 	@ManyToOne
 	@JoinColumn(name="formateur_id")
 	private Formateur formateur;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecModuleStagiaire.class)
 	@OneToMany(mappedBy="key.module")
 	private Set<ModuleStagiaire> modulesStagiaires;
 
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecPlanning.class)
 	@ManyToOne
 	@JoinColumn(name="planning_id")
 	private Planning planning;

@@ -69,7 +69,7 @@ public class SalleRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.SalleAvecPlanning.class)
 	public ResponseEntity<Salle> update(@Valid @RequestBody Salle salle, BindingResult result){
 		ResponseEntity<Salle> response = null;
 		if(result.hasErrors() || salle.getId() == null) {

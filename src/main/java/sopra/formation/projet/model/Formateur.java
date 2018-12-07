@@ -26,7 +26,7 @@ public class Formateur extends Personne{
 	private Login login;
 	
 	@OneToMany(mappedBy="formateur")
-	@JsonView(JsonViews.FormateurAvecModules.class)
+	@JsonView(JsonViews.FormateurAvecModule.class)
 	private Set<Module> modules;
 
 	
