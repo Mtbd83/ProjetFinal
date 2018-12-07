@@ -43,7 +43,7 @@ public class ModuleRestController {
 	
 	
 	@PostMapping(path= {"","/"})
-	@JsonView(JsonViews.Module.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> create(@Valid @RequestBody Module module, BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(br.hasErrors()) {
@@ -59,7 +59,7 @@ public class ModuleRestController {
 	}
 	
 	@GetMapping(value="/{idModule}")
-	@JsonView(JsonViews.Module.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Module>findById(@PathVariable (name="idModule") Integer id){
 		Module Module = moduleService.showById(id);
 		ResponseEntity<Module> response = null;
