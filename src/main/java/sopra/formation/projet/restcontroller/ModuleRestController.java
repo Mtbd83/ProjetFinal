@@ -36,7 +36,7 @@ public class ModuleRestController {
 	
 	
 	@GetMapping(path= {"","/"})
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecMatiereFormateur.class)
 	public ResponseEntity<List<Module>> findAll(){
 		return new ResponseEntity<>(moduleService.showAll(),HttpStatus.OK);
 	}
@@ -72,7 +72,7 @@ public class ModuleRestController {
 	}
 	
 	@PutMapping(path= {"","/"})
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.MatiereAvecModule.class)
 	public ResponseEntity<Module> update(@Valid @RequestBody Module module,BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Module> response = null;
 		if(br.hasErrors()||module.getIdModule()==null) {
@@ -92,7 +92,6 @@ public class ModuleRestController {
 	}
 	
 	@DeleteMapping(value="/{idModule}")
-	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> delete(@PathVariable (name="idModule")Integer id){
 		ResponseEntity<Void> response = null;
 		Module Module = moduleService.showById(id);

@@ -41,6 +41,7 @@ public class OrdinateurRestController {
 	}
 	
 	@PostMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> createOrdinateur(@Valid @RequestBody Ordinateur ordinateur, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
@@ -55,6 +56,7 @@ public class OrdinateurRestController {
 	}
 	
 	@GetMapping(value="/{id}")
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Ordinateur> findById(@PathVariable(name="id") Integer id) {
 		Ordinateur ordinateur = ordinateurService.showOrdinateurById(id);
 		ResponseEntity<Ordinateur> response = null;
@@ -67,6 +69,7 @@ public class OrdinateurRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Ordinateur> update(@Valid @RequestBody Ordinateur ordinateur, BindingResult result){
 		ResponseEntity<Ordinateur> response = null;
 		if(result.hasErrors() || ordinateur.getId() == null) {

@@ -38,7 +38,7 @@ public class Matiere {
 	@OneToMany(mappedBy="matiere")
 	private Set<Module> module;
 	
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.MatiereAvecFormateur.class)
 	@OneToMany(mappedBy = "key.matiere")
 	private Set<FormateurMatiere> formateursMatieres;
 	

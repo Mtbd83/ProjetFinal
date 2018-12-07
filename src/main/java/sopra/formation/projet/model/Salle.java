@@ -18,7 +18,7 @@ public class Salle extends Materiel{
 	
 	@OneToOne
 	@JoinColumn(name = "planning_salle_id")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.SalleAvecPlanning.class)
 	private Planning planning;
 	
 	public Salle() {

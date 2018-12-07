@@ -37,7 +37,7 @@ public class PlanningRestController {
 	
 	
 	@GetMapping(path= {"","/"})
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Planning>> findAll(){
 		return new ResponseEntity<>(planningService.showAllWithModules(),HttpStatus.OK);
 	}
@@ -56,7 +56,7 @@ public class PlanningRestController {
 	
 	
 	@PostMapping(path= {"","/"})
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> create(@Valid @RequestBody Planning planning, BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(br.hasErrors()) {
@@ -72,7 +72,7 @@ public class PlanningRestController {
 	}
 	
 	@GetMapping(value="/{idPlanning}")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Planning>findById(@PathVariable (name="idPlanning") Integer id){
 		Planning planning = planningService.showById(id);
 		ResponseEntity<Planning> response = null;
@@ -106,7 +106,7 @@ public class PlanningRestController {
 	}
 	
 	@DeleteMapping(value="/{idPlanning}")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> delete(@PathVariable (name="idPlanning")Integer id){
 		ResponseEntity<Void> response = null;
 		Planning planning = planningService.showById(id);

@@ -35,13 +35,13 @@ public class FormateurMatiereRestController {
 	private FormateurMatiereService formateurMatiereService;
 	
 	@GetMapping(path= { "" , "/" })
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.FormateurMatiere.class)
 	public ResponseEntity<List<FormateurMatiere>> findAll(){
 		return new ResponseEntity<>(formateurMatiereService.findAllFormateurMatiere(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.FormateurMatiere.class)
 	public ResponseEntity<Void> createFormateurMatiere(@Valid @RequestBody FormateurMatiere formateurMatiere, BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
@@ -56,7 +56,7 @@ public class FormateurMatiereRestController {
 	}
 	
 	@GetMapping(value="/{key}")
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.FormateurMatiere.class)
 	public ResponseEntity<FormateurMatiere> findById(@PathVariable(name="key") FormateurMatiereKey key) {
 		FormateurMatiere formateurMatiere = formateurMatiereService.findOne(key);
 		ResponseEntity<FormateurMatiere> response = null;
