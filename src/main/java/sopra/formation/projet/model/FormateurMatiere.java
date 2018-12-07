@@ -2,14 +2,22 @@ package sopra.formation.projet.model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class FormateurMatiere {
 
 	@EmbeddedId
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
 	private FormateurMatiereKey key;
 	
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
 	private String expertise;
 
 	public FormateurMatiere() {

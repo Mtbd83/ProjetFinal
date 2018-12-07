@@ -12,20 +12,29 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("Ordinateur")
 public class Ordinateur extends Materiel {
 
 	@Column(name="processeur")
+	@JsonView(JsonViews.Common.class)
 	private String processeur;
+	
 	@Column(name = "capacite_ram")
+	@JsonView(JsonViews.Common.class)
 	private Integer ram;
+	
 	@Column(name="capacite_DD")
+	@JsonView(JsonViews.Common.class)
 	private Integer disqueDur;
+	
 	@Column(name="date_achat")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date achatOrdi;
+	@JsonView(JsonViews.Common.class)
+	private Date dateAchat;
 
 	
 	
@@ -34,12 +43,12 @@ public class Ordinateur extends Materiel {
 	}
 
 
-	public Ordinateur(String processeur, Integer ram, Integer disqueDur, Date achatOrdi) {
+	public Ordinateur(String processeur, Integer ram, Integer disqueDur, Date dateAchat) {
 		super();
 		this.processeur = processeur;
 		this.ram = ram;
 		this.disqueDur = disqueDur;
-		this.achatOrdi = achatOrdi;
+		this.dateAchat = dateAchat;
 	}
 
 
@@ -75,12 +84,12 @@ public class Ordinateur extends Materiel {
 
 
 	public Date getAchatOrdi() {
-		return achatOrdi;
+		return dateAchat;
 	}
 
 
-	public void setAchatOrdi(Date achatOrdi) {
-		this.achatOrdi = achatOrdi;
+	public void setAchatOrdi(Date dateAchat) {
+		this.dateAchat = dateAchat;
 	}
 	
 	

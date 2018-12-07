@@ -42,14 +42,14 @@ public class MatiereRestController {
 		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
 	}
 	
-	@GetMapping(path = {"/module/" })
+	@GetMapping(path = {"/module" })
 	@JsonView(JsonViews.MatiereAvecModule.class)
 	public ResponseEntity<List<Matiere>> findAllMatiereWithModule() {
 		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
 	}
 	
-	@GetMapping(path = {"/module/{idMatiere}" })
-	@JsonView(JsonViews.MatiereAvecModule.class)
+	@GetMapping(path = {"/module/{idMatiere}"})
+	//@JsonView(JsonViews.MatiereAvecModule.class)
 	public ResponseEntity<Matiere> findMatiereWithModule(@PathVariable(name="idMatiere") Integer idMatiere) {
 		return new ResponseEntity<>(matiereService.findMatiereWithModule(idMatiere), HttpStatus.OK);
 	}

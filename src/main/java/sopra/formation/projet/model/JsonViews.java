@@ -18,5 +18,13 @@ public class JsonViews {
 		
 	}
 	
+	public static class MaterielAvecMaterielPlanning extends Common{
+		
+	}
+	
+	public static class FormateurAvecMatiere extends Common{
+		
+	}
+	
 
 }

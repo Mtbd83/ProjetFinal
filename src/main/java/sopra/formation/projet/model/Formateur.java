@@ -17,7 +17,7 @@ public class Formateur extends Personne{
 	
 	@OneToMany(mappedBy="key.formateur")
 	@Column(name="matiere")
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
 	private Set<FormateurMatiere> formateurmatiere;
 	
 	@OneToOne

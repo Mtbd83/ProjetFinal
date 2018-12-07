@@ -71,7 +71,7 @@ public class MaterielRestController {
 			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
 			materielEnBase.setCode(materiel.getCode());
 			materielEnBase.setCout(materiel.getCout());
-			materielEnBase.setDisponibilité(materiel.isDisponibilité());
+			materielEnBase.setDisponibilite(materiel.isDisponibilite());
 			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
 			
 			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);

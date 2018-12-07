@@ -14,24 +14,31 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "materiel")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@SequenceGenerator(name = "seqMateriel", sequenceName = "seq_materiel", initialValue = 1, allocationSize = 20)
+@SequenceGenerator(name = "seqMateriel", sequenceName = "seq_materiel", initialValue = 50, allocationSize = 20)
 public abstract class Materiel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqMateriel")
+	@JsonView(JsonViews.Common.class)
 	private Integer id;
 	@Column(name = "code", length = 100)
+	@JsonView(JsonViews.Common.class)
 	private Integer code;
 	@Column(name = "cout", length = 100)
+	@JsonView(JsonViews.Common.class)
 	private Integer cout;
 	@Column(name = "disponibilite", length = 100)
+	@JsonView(JsonViews.Common.class)
 	private boolean disponibilite;
 	@Version
 	private int version;
 	
+	@JsonView(JsonViews.MaterielAvecMaterielPlanning.class)
 	@OneToMany(mappedBy = "key.materiel")
 	private Set<MaterielPlanning> materielPlanning;
 	
@@ -69,16 +76,6 @@ public abstract class Materiel {
 	public void setCout(Integer cout) {
 		this.cout = cout;
 	}
-
-	public boolean isDisponibilité() {
-		return disponibilite;
-	}
-
-	public void setDisponibilité(boolean disponibilité) {
-		this.disponibilite = disponibilité;
-	}
-	
-	
 
 	public boolean isDisponibilite() {
 		return disponibilite;

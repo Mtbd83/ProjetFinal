@@ -1,5 +1,6 @@
 package sopra.formation.projet.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -48,13 +49,18 @@ public class FormateurService {
 		return formateurs;
 	}
 
-	public Formateur formateurAvecMatiere(Integer id) {
+	public List<Matiere> formateurAvecMatiere(Integer id) {
 		Optional<Formateur> opt = formateurRepository.findByIdWithMatiere(id);
 		Formateur f = new Formateur();
+		List<Matiere> matieres=new ArrayList<Matiere>();
 		if (opt.isPresent()) {
 			f = opt.get();
+			for (FormateurMatiere fm : f.getFormateurmatiere()) {
+				matieres.add(fm.getKey().getMatiere());
+			}
+			
 		}
-		return f;
+		return matieres;
 	}
 
 	public void creerFormateur(Formateur formateur) {
