@@ -27,7 +27,7 @@ public class Module {
 	
 	@Id
 	@GeneratedValue(generator = "seqModule", strategy = GenerationType.SEQUENCE)
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	private Integer idModule;
 	
 	@ManyToOne
@@ -47,14 +47,15 @@ public class Module {
 	@JsonView(JsonViews.ModuleAvecPlanning.class)
 	@ManyToOne
 	@JoinColumn(name="planning_id")
+	@JsonView(JsonViews.ModuleAvecPlanning.class)
 	private Planning planning;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateDebut;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateFin;

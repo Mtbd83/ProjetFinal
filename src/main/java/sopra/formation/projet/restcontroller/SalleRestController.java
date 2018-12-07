@@ -76,7 +76,7 @@ public class SalleRestController {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Salle salleEnBase = salleService.showSalleById(salle.getId());
-			salleEnBase.setCode(salle.getCapacite());
+			salleEnBase.setCode(salle.getCode());
 			salleEnBase.setCout(salle.getCout());
 			salleEnBase.setCapacite(salle.getCapacite());
 			salleEnBase.setDisponibilite(salle.isDisponibilite());
