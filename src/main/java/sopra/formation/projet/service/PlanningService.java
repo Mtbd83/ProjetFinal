@@ -1,5 +1,6 @@
 package sopra.formation.projet.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sopra.formation.projet.model.Module;
 import sopra.formation.projet.model.Planning;
 import sopra.formation.projet.model.Salle;
 import sopra.formation.projet.repository.PlanningRepository;
@@ -40,10 +42,11 @@ public class PlanningService {
 	
 	public Planning showByIdWithModules(Integer idPlanning) {
 		Optional<Planning> opt = planningRepo.findByIdWithModules(idPlanning);
+		Planning plan = new Planning();
 		if (opt.isPresent()) {
-			return opt.get();
-		}
-		return null;
+			plan =opt.get();
+			}
+		return plan;
 	}
 	
 	
