@@ -37,7 +37,7 @@ public class MatiereRestController {
 	private MatiereService matiereService;
 
 	@GetMapping(path = { "", "/" })
-	@JsonView(JsonViews.Matiere.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Matiere>> findAll() {
 		return new ResponseEntity<>(matiereService.findAllWithModule(), HttpStatus.OK);
 	}
@@ -55,7 +55,7 @@ public class MatiereRestController {
 	}
 
 	@PostMapping(path = { "", "/" })
-	@JsonView(JsonViews.Matiere.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Void> createMatiere(@Valid @RequestBody Matiere matiere, BindingResult br,
 			UriComponentsBuilder uCB) {
 		ResponseEntity<Void> response = null;
@@ -71,7 +71,7 @@ public class MatiereRestController {
 	}
 
 	@GetMapping(value = "/{idMatiere}")
-	@JsonView(JsonViews.Matiere.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Matiere> findById(@PathVariable(name = "idMatiere") Integer idMatiere) {
 		Matiere opt = matiereService.findMatiere(idMatiere);
 		ResponseEntity<Matiere> response = null;

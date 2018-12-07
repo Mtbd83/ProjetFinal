@@ -30,30 +30,31 @@ public class Planning {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqIdPlanning") 
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	private Integer idPlanning;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	private Date dateDebut;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	private Date dateFin;
 	
 	@OneToOne
 	@JoinColumn(name = "gestionnaire")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	private Gestionnaire gestionnaire;
 	
+	@JsonView(JsonViews.Common.class)
 	@ManyToOne
 	@JoinColumn(name = "videoprojecteur_id")
-	@JsonView(JsonViews.Planning.class)
 	private VideoProjecteur videoProj;
 	
-	@JsonView(JsonViews.PlanningAvecModule.class)
+
+	
 	@OneToMany(mappedBy="planning")
 	@JsonView(JsonViews.PlanningAvecModule.class)
 	private Set<Module> modules;
@@ -61,7 +62,7 @@ public class Planning {
 	
 	@ManyToOne
 	@JoinColumn(name = "salle_id")
-	@JsonView(JsonViews.Planning.class)
+	@JsonView(JsonViews.Common.class)
 	private Salle salle;
 	
 	@Version

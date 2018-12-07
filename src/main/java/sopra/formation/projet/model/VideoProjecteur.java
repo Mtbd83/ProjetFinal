@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 
@@ -16,7 +17,7 @@ public class VideoProjecteur extends Materiel {
 
 	@OneToMany(mappedBy="videoProj")
 	private Set<Planning> planning;
-	@JoinColumn(name = "planning_id")
+
 	
 	public VideoProjecteur() {
 		
