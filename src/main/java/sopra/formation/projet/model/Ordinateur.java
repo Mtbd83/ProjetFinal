@@ -83,14 +83,17 @@ public class Ordinateur extends Materiel {
 	}
 
 
-	public Date getAchatOrdi() {
+	public Date getDateAchat() {
 		return dateAchat;
 	}
 
 
-	public void setAchatOrdi(Date dateAchat) {
+	public void setDateAchat(Date dateAchat) {
 		this.dateAchat = dateAchat;
 	}
+
+
+
 	
 	
 }

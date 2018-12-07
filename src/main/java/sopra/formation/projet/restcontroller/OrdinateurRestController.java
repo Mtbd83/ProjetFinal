@@ -79,7 +79,7 @@ public class OrdinateurRestController {
 			ordinateurEnBase.setMaterielPlanning(ordinateur.getMaterielPlanning());
 			ordinateurEnBase.setRam(ordinateur.getRam());
 			ordinateurEnBase.setProcesseur(ordinateur.getProcesseur());
-			ordinateurEnBase.setAchatOrdi(ordinateur.getAchatOrdi());
+			ordinateurEnBase.setDateAchat(ordinateur.getDateAchat());
 			ordinateurEnBase.setDisqueDur(ordinateur.getDisqueDur());
 			ordinateurService.update(ordinateurEnBase);
 			response = new ResponseEntity<Ordinateur>(ordinateurEnBase, HttpStatus.OK);

@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import sopra.formation.projet.model.JsonViews;
+import sopra.formation.projet.model.Module;
 import sopra.formation.projet.model.Planning;
 import sopra.formation.projet.service.PlanningService;
 
@@ -36,20 +37,26 @@ public class PlanningRestController {
 	
 	
 	@GetMapping(path= {"","/"})
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	public ResponseEntity<List<Planning>> findAll(){
 		return new ResponseEntity<>(planningService.showAllWithModules(),HttpStatus.OK);
 	}
 	
 	@GetMapping(path= {"/module"})
-	@JsonView(JsonViews.Common.class)
-	public ResponseEntity<List<Planning>> findAllWithPeronnes() {
+	@JsonView(JsonViews.PlanningAvecModule.class)
+	public ResponseEntity<List<Planning>> findAllWithModules() {
 		return new ResponseEntity<>(planningService.showAllWithModules(),HttpStatus.OK);
+	}
+	
+	@GetMapping(path= {"/module/{idPlanning}"})
+	@JsonView(JsonViews.PlanningAvecModule.class)
+	public ResponseEntity<Planning> findByIdWithModules(@PathVariable(name="idPlanning") Integer id) {
+		return new ResponseEntity<>(planningService.showByIdWithModules(id),HttpStatus.OK);
 	}
 	
 	
 	@PostMapping(path= {"","/"})
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	public ResponseEntity<Void> create(@Valid @RequestBody Planning planning, BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(br.hasErrors()) {
@@ -65,7 +72,7 @@ public class PlanningRestController {
 	}
 	
 	@GetMapping(value="/{idPlanning}")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	public ResponseEntity<Planning>findById(@PathVariable (name="idPlanning") Integer id){
 		Planning planning = planningService.showById(id);
 		ResponseEntity<Planning> response = null;
@@ -78,7 +85,7 @@ public class PlanningRestController {
 	}
 	
 	@PutMapping(path= {"","/"})
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecModule.class)
 	public ResponseEntity<Planning> update(@Valid @RequestBody Planning planning,BindingResult br, UriComponentsBuilder uCB){
 		ResponseEntity<Planning> response = null;
 		if(br.hasErrors()||planning.getIdPlanning()==null) {
@@ -99,7 +106,7 @@ public class PlanningRestController {
 	}
 	
 	@DeleteMapping(value="/{idPlanning}")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	public ResponseEntity<Void> delete(@PathVariable (name="idPlanning")Integer id){
 		ResponseEntity<Void> response = null;
 		Planning planning = planningService.showById(id);
