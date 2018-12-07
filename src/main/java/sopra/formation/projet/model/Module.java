@@ -27,34 +27,35 @@ public class Module {
 	
 	@Id
 	@GeneratedValue(generator = "seqModule", strategy = GenerationType.SEQUENCE)
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	private Integer idModule;
 	
 	@ManyToOne
 	@JoinColumn(name="matiere_id")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecMatiereFormateur.class)
 	private Matiere matiere;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecMatiereFormateur.class)
 	@ManyToOne
 	@JoinColumn(name="formateur_id")
 	private Formateur formateur;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecModuleStagiaire.class)
 	@OneToMany(mappedBy="key.module")
 	private Set<ModuleStagiaire> modulesStagiaires;
 
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.ModuleAvecPlanning.class)
 	@ManyToOne
 	@JoinColumn(name="planning_id")
+	@JsonView(JsonViews.ModuleAvecPlanning.class)
 	private Planning planning;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateDebut;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Module.class)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateFin;

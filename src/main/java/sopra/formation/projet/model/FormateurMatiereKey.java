@@ -14,7 +14,7 @@ public class FormateurMatiereKey implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "idFormateur")
-	//@JsonView(JsonViews.FormateurAvecMatiere.class)
+	@JsonView(JsonViews.MatiereAvecFormateur.class)
 	private Formateur formateur;
 	
 	@ManyToOne

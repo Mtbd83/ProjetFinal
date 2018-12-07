@@ -20,25 +20,25 @@ public class Matiere {
 
 	@Id
 	@GeneratedValue(generator = "seqMatiere", strategy = GenerationType.SEQUENCE)
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private Integer idMatiere;
 	
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private String titre;
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private Integer duree;
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private String objectif;
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private String prerequis;
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Matiere.class)
 	private String contenu;
 	
 	@JsonView(JsonViews.MatiereAvecModule.class)
 	@OneToMany(mappedBy="matiere")
 	private Set<Module> module;
 	
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.MatiereAvecFormateur.class)
 	@OneToMany(mappedBy = "key.matiere")
 	private Set<FormateurMatiere> formateursMatieres;
 	

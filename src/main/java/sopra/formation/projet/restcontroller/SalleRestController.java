@@ -69,14 +69,14 @@ public class SalleRestController {
 	}
 	
 	@PutMapping(path= { "" , "/" })
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.SalleAvecPlanning.class)
 	public ResponseEntity<Salle> update(@Valid @RequestBody Salle salle, BindingResult result){
 		ResponseEntity<Salle> response = null;
 		if(result.hasErrors() || salle.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
 			Salle salleEnBase = salleService.showSalleById(salle.getId());
-			salleEnBase.setCode(salle.getCapacite());
+			salleEnBase.setCode(salle.getCode());
 			salleEnBase.setCout(salle.getCout());
 			salleEnBase.setCapacite(salle.getCapacite());
 			salleEnBase.setDisponibilite(salle.isDisponibilite());

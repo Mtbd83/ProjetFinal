@@ -3,12 +3,16 @@ package sopra.formation.projet.model;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class MaterielPlanning {
 
 	@EmbeddedId
+	@JsonView(JsonViews.MaterielAvecMaterielPlanning.class)
 	private MaterielPlanningKey key;
 
+	@JsonView(JsonViews.Common.class)
 	private boolean disponibilite;
 
 	public MaterielPlanning() {

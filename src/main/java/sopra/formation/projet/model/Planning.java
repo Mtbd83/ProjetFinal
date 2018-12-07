@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -29,37 +30,38 @@ public class Planning {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqIdPlanning") 
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	private Integer idPlanning;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	private Date dateDebut;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	private Date dateFin;
 	
 	@OneToOne
 	@JoinColumn(name = "gestionnaire")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.Planning.class)
 	private Gestionnaire gestionnaire;
 	
-	@OneToOne
-	@JoinColumn(name = "videoprojecteur")
-	@JsonView(JsonViews.Common.class)
+	@ManyToOne
+	@JoinColumn(name = "videoprojecteur_id")
+	@JsonView(JsonViews.Planning.class)
 	private VideoProjecteur videoProj;
 	
+	@JsonView(JsonViews.PlanningAvecModule.class)
 	@OneToMany(mappedBy="planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecModule.class)
 	private Set<Module> modules;
 	
 	
-	@OneToOne
-	@JoinColumn(name = "salle")
-	@JsonView(JsonViews.Common.class)
+	@ManyToOne
+	@JoinColumn(name = "salle_id")
+	@JsonView(JsonViews.Planning.class)
 	private Salle salle;
 	
 	@Version
@@ -67,7 +69,7 @@ public class Planning {
 	
 
 	@OneToMany(mappedBy = "key.planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecMaterielPlanning.class)
 	private Set<MaterielPlanning> materielPlanning;
 	
 	
