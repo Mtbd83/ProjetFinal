@@ -41,11 +41,12 @@ public class LoginRestController {
 	}
 
 	@GetMapping(path = {"/{username}" })
+	@JsonView(JsonViews.LoginAvecRole.class)
 	public ResponseEntity<Login> findLoginById(@PathVariable(name = "username") String username) {
 		Login login = loginService.showLoginByUsername(username);
 		ResponseEntity<Login> response = null;
 		if (login != null) {
-			response = new ResponseEntity<Login>(HttpStatus.OK);
+			response = new ResponseEntity<Login>(login,HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
