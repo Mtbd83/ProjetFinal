@@ -70,5 +70,14 @@ public class MatiereService {
 		return matiere;
 	}
 	
+	public Matiere findMatiereWithFormateurById(Integer id){
+		Optional<Matiere> mat= matiereRepository.findMatiereWithFormateurById(id);
+		if(mat.isPresent()) {
+			return (mat.get());
+		}else {
+			return null;
+		}
+	}
+	
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -47,18 +48,20 @@ public class Planning {
 	@JsonView(JsonViews.Common.class)
 	private Gestionnaire gestionnaire;
 	
-	@OneToOne
-	@JoinColumn(name = "videoprojecteur")
 	@JsonView(JsonViews.Common.class)
+	@ManyToOne
+	@JoinColumn(name = "videoprojecteur_id")
 	private VideoProjecteur videoProj;
 	
+
+	
 	@OneToMany(mappedBy="planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecModule.class)
 	private Set<Module> modules;
 	
 	
-	@OneToOne
-	@JoinColumn(name = "salle")
+	@ManyToOne
+	@JoinColumn(name = "salle_id")
 	@JsonView(JsonViews.Common.class)
 	private Salle salle;
 	
@@ -67,7 +70,7 @@ public class Planning {
 	
 
 	@OneToMany(mappedBy = "key.planning")
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.PlanningAvecMaterielPlanning.class)
 	private Set<MaterielPlanning> materielPlanning;
 	
 	

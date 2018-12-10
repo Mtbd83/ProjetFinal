@@ -1,9 +1,12 @@
 package sopra.formation.projet.model;
 
+import java.util.Set;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -11,22 +14,23 @@ import com.fasterxml.jackson.annotation.JsonView;
 @DiscriminatorValue("VideoProjecteur")
 public class VideoProjecteur extends Materiel {
 	
-	@OneToOne
-	@JoinColumn(name = "planning_id")
-	@JsonView(JsonViews.Common.class)
-	private Planning planning;
+
+	@OneToMany(mappedBy="videoProj")
+	private Set<Planning> planning;
+
 	
 	public VideoProjecteur() {
 		
 	}
 
-	public Planning getPlanning() {
+	public Set<Planning> getPlanning() {
 		return planning;
 	}
 
-	public void setPlanning(Planning planning) {
+	public void setPlanning(Set<Planning> planning) {
 		this.planning = planning;
 	}
-	
+
+
 		
 }

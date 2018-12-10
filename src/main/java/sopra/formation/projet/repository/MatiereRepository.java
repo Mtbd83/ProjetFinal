@@ -33,6 +33,11 @@ public interface MatiereRepository extends JpaRepository<Matiere,Integer>{
 	
 	
 	@Query("select distinct m from Matiere m left join fetch m.module where m.idMatiere=:id")
-	Optional<Matiere> findMatiereWithModuleById(@Param("id")Integer id);
+	Optional<Matiere> findMatiereWithModuleById(@Param("id")Integer id);	
+
+	@Query("select distinct m from Matiere m left join fetch m.formateursMatieres where m.idMatiere=:id")
+	Optional<Matiere> findMatiereWithFormateurById(@Param("id")Integer id);
+	
+	
 
 }

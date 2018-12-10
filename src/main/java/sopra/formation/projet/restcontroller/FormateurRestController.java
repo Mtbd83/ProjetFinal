@@ -24,7 +24,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import sopra.formation.projet.model.Formateur;
 import sopra.formation.projet.model.JsonViews;
+import sopra.formation.projet.model.Matiere;
+import sopra.formation.projet.service.FormateurMatiereService;
 import sopra.formation.projet.service.FormateurService;
+import sopra.formation.projet.service.MatiereService;
 
 @RestController
 @RequestMapping("/rest/formateur")
@@ -34,15 +37,28 @@ public class FormateurRestController {
 	@Autowired
 	private FormateurService formateurService;
 	
+	@Autowired
+	private FormateurMatiereService formateurMatiereService;
+	
+	@Autowired
+	private MatiereService matiereService;
+	
 	@GetMapping(path= { "" , "/" })
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<List<Formateur>> findAll(){
-		return new ResponseEntity<>(formateurService.listeFormateurAvecFormateurMatiere(), HttpStatus.OK);
+		return new ResponseEntity<>(formateurService.listeFormateurs(), HttpStatus.OK);
 	}
 	
-	@GetMapping(path= { "/matiere/{id}" })
-	public ResponseEntity<Formateur> findWithMatiere(@PathVariable(name="id") Integer id){
-		return new ResponseEntity<Formateur>(formateurService.formateurAvecMatiere(id), HttpStatus.OK);
+	@GetMapping(path= { "/matiere" })
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
+	public ResponseEntity<List<Formateur>> findAllWithMatiere(){
+		return new ResponseEntity<>(formateurService.listeFormateurAvecMatiere(), HttpStatus.OK);
+	}
+	
+	@GetMapping(path={ "/matiere/{id}" })
+	@JsonView(JsonViews.FormateurAvecMatiere.class)
+	public ResponseEntity<List<Matiere>> findWithMatiere(@PathVariable(name="id") Integer id){
+		return new ResponseEntity<List<Matiere>>(formateurService.formateurAvecMatiere(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
@@ -61,7 +77,7 @@ public class FormateurRestController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@JsonView(JsonViews.FormateurAvecFormateurMatiere.class)
+	@JsonView(JsonViews.Common.class)
 	public ResponseEntity<Formateur> findById(@PathVariable(name="id") Integer id) {
 		Formateur formateur = formateurService.showFormateurById(id);
 		ResponseEntity<Formateur> response = null;
@@ -98,6 +114,19 @@ public class FormateurRestController {
 		ResponseEntity<Void> response = null;
 		if(formateur != null) {
 			formateurService.deleteFormateur(formateur);
+			response = new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return response;
+	}
+	
+	@DeleteMapping(value="/matiere/{id}/{idMatiere}")
+	public ResponseEntity<Void> deleteMatiereFormateur(@PathVariable(name="id") Integer id, @PathVariable(name="idMatiere") Integer idMatiere){
+		Matiere ma = matiereService.findMatiere(idMatiere);
+		ResponseEntity<Void> response = null;
+		if(ma != null) {
+			formateurMatiereService.deleteFormateurMatiereByMatiere(ma);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,4 +1,4 @@
-package sopra.formation.projet.restcontroller;
+ackage sopra.formation.projet.restcontroller;
 
 import java.util.List;
 
@@ -21,28 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import sopra.formation.projet.model.Materiel;
-import sopra.formation.projet.service.MaterielService;
+import sopra.formation.projet.model.MaterielPlanning;
+import sopra.formation.projet.model.Planning;
+import sopra.formation.projet.service.MaterielPlanningService;
+
 
 @RestController
 @RequestMapping("/rest/materiel")
 @CrossOrigin(origins = {"*"})
-public class MaterielRestController {
+public class MaterielPlanningRestController {
 
 	@Autowired
-	private MaterielService materielService;
+	private MaterielPlanningService materielPlanningService;
 	
 	@GetMapping(path= { "" , "/" })
-	public ResponseEntity<List<Materiel>> findAll(){
-		return new ResponseEntity<>(materielService.showAll(), HttpStatus.OK);
+	public ResponseEntity<List<MaterielPlanning>> findAll(){
+		return new ResponseEntity<>(materielPlanningService.showAllMaterielPlanning(), HttpStatus.OK);
 	}
 	
 	@PostMapping(path= { "" , "/" })
-	public ResponseEntity<Void> createMateriel(@Valid @RequestBody Materiel materiel, BindingResult result, UriComponentsBuilder uCB){
+	public ResponseEntity<Void> createMateriel(@Valid @RequestBody Materiel materiel, Planning planning , BindingResult result, UriComponentsBuilder uCB){
 		ResponseEntity<Void> response = null;
 		if(result.hasErrors()) {
 			response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			materielService.createMateriel(materiel);
+			materielPlanningService.creatMaterielPlanning(materiel, planning);
 			HttpHeaders header = new HttpHeaders();
 			header.setLocation(uCB.path("/rest/materiel/{id}").buildAndExpand(materiel.getId()).toUri());
 			response = new ResponseEntity<>(header, HttpStatus.CREATED);
@@ -52,7 +55,7 @@ public class MaterielRestController {
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Materiel> findById(@PathVariable(name="id") Integer id) {
-		Materiel materiel = materielService.showMaterielById(id);
+		Materiel materiel = materielPlanningService.showMaterielById(id);
 		ResponseEntity<Materiel> response = null;
 		if(materiel != null) {
 			response = new ResponseEntity<Materiel>(materiel, HttpStatus.OK);
@@ -68,23 +71,27 @@ public class MaterielRestController {
 		if(result.hasErrors() || materiel.getId() == null) {
 			response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		} else {
-			Materiel materielEnBase = materielService.showMaterielById(materiel.getId());
-			materielEnBase.setCode(materiel.getCode());
-			materielEnBase.setCout(materiel.getCout());
-			materielEnBase.setDisponibilite(materiel.isDisponibilite());
-			materielEnBase.setMaterielPlanning(materielEnBase.getMaterielPlanning());
-			
-			response = new ResponseEntity<Materiel>(materielEnBase, HttpStatus.OK);
+			Materiel m = materielPlanningService.showMaterielById(materiel.getId());
+			if(m != null) {
+				Materiel MaterielEnBase = m;
+				MaterielEnBase.setCode(m.getCode());
+				MaterielEnBase.setCout(m.getCout());
+				MaterielEnBase.setMaterielPlanning(m.getMaterielPlanning());
+				materielService.modifMateriel(MaterielEnBase);
+				response = new ResponseEntity<Materiel>(MaterielEnBase, HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+			}
 		}
 		return response;
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id){
-		Materiel materiel = materielService.showMaterielById(id);
+		Materiel materiel = materielPlanningService.showMaterielById(id);
 		ResponseEntity<Void> response = null;
 		if(materiel != null) {
-			materielService.deleteMateriel(materiel);
+			materielPlanningService.deleteMateriel(materiel);
 			response = new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -92,3 +99,4 @@ public class MaterielRestController {
 		return response;
 	}
 }
+
