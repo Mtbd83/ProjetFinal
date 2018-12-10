@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 
 @Entity
@@ -22,6 +24,7 @@ public class LoginRole {
 	@ManyToOne
 	@JoinColumn(name="username")
 	private Login user;
+	@JsonView(JsonViews.LoginAvecRole.class)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	

@@ -82,7 +82,7 @@ public class LoginService {
 	}
 
 	public List<Login> showAllLogin() {
-		return loginRepository.findAll();
+		return loginRepository.findAllWithRoles();
 	}
 
 	

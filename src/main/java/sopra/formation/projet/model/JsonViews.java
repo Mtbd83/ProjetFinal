@@ -57,5 +57,9 @@ public class JsonViews {
 	public static class ModuleAvecModuleStagiaire extends Common {
 
 	}
+	
+	public static class LoginAvecRole extends Common{
+		
+	}
 
 }

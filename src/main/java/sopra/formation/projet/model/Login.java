@@ -20,7 +20,7 @@ public class Login {
 	private String password;
 	@JsonView(JsonViews.Common.class)
 	private boolean enable;
-	@JsonView(JsonViews.Common.class)
+	@JsonView(JsonViews.LoginAvecRole.class)
 	@OneToMany(mappedBy="user")
 	private Set<LoginRole> roles;
 	
